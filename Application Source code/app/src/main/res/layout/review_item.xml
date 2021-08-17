@@ -1,80 +1,76 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_height="wrap_content"
-    android:layout_width="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:backgroundTint="#5c1e21"
-    app:cardUseCompatPadding="true"
-    app:cardElevation="5dp"
-    app:cardCornerRadius="10dp">
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:id="@+id/review_layout">
+    android:backgroundTint="#5c1e21"
+    app:cardCornerRadius="10dp"
+    app:cardElevation="5dp"
+    app:cardUseCompatPadding="true">
 
-
-    <com.mikhaellopez.circularimageview.CircularImageView
-        android:id="@+id/review_image"
-        android:layout_width="40dp"
-        app:civ_border="false"
-        android:layout_marginRight="10dp"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentTop="true"
-        android:layout_height="40dp"
-        tools:srcCompat="@tools:sample/avatars" />
-
-    <TextView
-        android:paddingLeft="8dp"
-        android:textSize="14dp"
-        android:paddingTop="10dp"
-        android:gravity="start"
-        android:textStyle="bold|italic"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true"
-        android:textColor="@color/white"
-        android:id="@+id/reviewer"
+    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:id="@+id/review_layout"
         android:layout_width="match_parent"
-        android:layout_height="40dp"
-        android:layout_toLeftOf="@id/review_image"/>
+        android:layout_height="wrap_content">
 
 
-    <com.ms.square.android.expandabletextview.ExpandableTextView
-        xmlns:expandableTextView="http://schemas.android.com/apk/res-auto"
-        android:id="@+id/expand_text_view"
-        android:paddingRight="8dp"
-        android:paddingLeft="8dp"
-        android:paddingBottom="10dp"
-        android:layout_width="match_parent"
-        android:layout_below="@id/reviewer"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:layout_alignParentStart="true"
-        expandableTextView:maxCollapsedLines="4"
-        expandableTextView:animDuration="200">
+        <com.mikhaellopez.circularimageview.CircularImageView
+            android:id="@+id/review_image"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentEnd="true"
+            android:layout_marginRight="10dp"
+            app:civ_border="false"
+            tools:srcCompat="@tools:sample/avatars" />
 
         <TextView
-            android:id="@id/expandable_text"
+            android:id="@+id/reviewer"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:layout_toLeftOf="@id/review_image"
+            android:gravity="start"
+            android:paddingLeft="8dp"
+            android:paddingTop="10dp"
+            android:textColor="@color/white"
+            android:textSize="14dp"
+            android:textStyle="bold|italic" />
+
+
+        <com.ms.square.android.expandabletextview.ExpandableTextView xmlns:expandableTextView="http://schemas.android.com/apk/res-auto"
+            android:id="@+id/expand_text_view"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="10dp"
-            android:layout_marginRight="10dp"
-            android:textColor="@color/white" />
+            android:layout_below="@id/reviewer"
+            android:layout_alignParentStart="true"
+            android:layout_marginTop="10dp"
+            android:paddingLeft="8dp"
+            android:paddingRight="8dp"
+            android:paddingBottom="10dp"
+            expandableTextView:animDuration="200"
+            expandableTextView:maxCollapsedLines="4">
 
-        <ImageButton
-            android:id="@id/expand_collapse"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:padding="16dp"
-            android:layout_gravity="right|bottom"
-            android:background="@android:color/transparent"/>
+            <TextView
+                android:id="@id/expandable_text"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:textColor="@color/white" />
 
-    </com.ms.square.android.expandabletextview.ExpandableTextView>
+            <ImageButton
+                android:id="@id/expand_collapse"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="right|bottom"
+                android:background="@android:color/transparent"
+                android:padding="16dp" />
+
+        </com.ms.square.android.expandabletextview.ExpandableTextView>
 
 
-
-
-
-
-</RelativeLayout>
-    </androidx.cardview.widget.CardView>
+    </RelativeLayout>
+</androidx.cardview.widget.CardView>

@@ -14,8 +14,10 @@
         android:background="#b35458"
         android:importantForAccessibility="no"
         android:scaleType="centerCrop"
-        tools:layout_editor_absoluteX="0dp"
-        tools:layout_editor_absoluteY="0dp" />
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <ImageView
         android:id="@+id/actor_image"
@@ -24,7 +26,6 @@
         android:layout_marginStart="10dp"
         android:layout_marginTop="24dp"
         android:contentDescription="@string/actor_s_photo"
-        android:onClick="zoomImgA"
         android:scaleType="centerCrop"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -94,13 +95,14 @@
         android:layout_marginStart="32dp"
         android:layout_marginEnd="32dp"
         android:layout_marginBottom="16dp"
-        android:onClick="shareButtonA"
+        android:importantForAccessibility="no"
         android:src="@drawable/ic_baseline_share_24"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="@+id/guideline6" />
 
     <ImageButton
+        android:importantForAccessibility="no"
         android:id="@+id/button2"
         android:layout_width="46dp"
         android:layout_height="46dp"
@@ -113,8 +115,6 @@
         app:layout_constraintStart_toStartOf="parent" />
 
 
-
-
     <ProgressBar
         android:id="@+id/progressBarA"
         style="?android:attr/progressBarStyle"
@@ -125,21 +125,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <!--    <Button-->
-    <!--        android:id="@+id/button5"-->
-    <!--        android:layout_width="wrap_content"-->
-    <!--        android:layout_height="wrap_content"-->
-    <!--        android:layout_marginTop="16dp"-->
-    <!--        android:layout_marginEnd="10dp"-->
-    <!--        android:layout_marginBottom="8dp"-->
-    <!--        android:backgroundTint="#50000000"-->
-    <!--        android:onClick="similarMovies"-->
-    <!--        android:text="@string/browse_similar"-->
-    <!--        android:textSize="14dp"-->
-    <!--        android:textAllCaps="false"-->
-    <!--        app:layout_constraintBottom_toTopOf="@+id/actor_overview"-->
-    <!--        app:layout_constraintEnd_toEndOf="parent"-->
-    <!--        app:layout_constraintTop_toBottomOf="@+id/actor_birth" />-->
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/actor_recycler"
@@ -162,7 +147,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="10dp"
         android:layout_marginTop="50dp"
-        android:text="Movies:"
+        android:text="@string/movies"
         android:textSize="18dp"
         app:layout_constraintBottom_toTopOf="@+id/actor_recycler"
         app:layout_constraintEnd_toEndOf="parent"

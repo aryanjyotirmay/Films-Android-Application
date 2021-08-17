@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/_textured_paper_with_leather_burgundy_background___very_best_portraits">
@@ -10,101 +10,60 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/textInputLayout2"
-            android:layout_width="285dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="24dp"
-            android:alpha="0.7"
-            android:background="#60000000"
-            android:hint="@string/find_movies"
-            android:textColorHint="#FFFFFF"
-            app:boxBackgroundMode="outline"
-            app:hintTextColor="@color/white"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textView"
-            app:placeholderTextColor="#FFFFFF"
-            app:prefixTextColor="#FFFFFF">
-
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/edit_text"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:textColor="#FFFFFF" />
-
-        </com.google.android.material.textfield.TextInputLayout>
-
         <androidx.recyclerview.widget.RecyclerView
-            android:background="#40000000"
             android:id="@+id/recyclerViewLat"
             android:layout_width="match_parent"
             android:layout_height="144dp"
             android:layout_marginStart="8dp"
             android:layout_marginTop="8dp"
             android:layout_marginEnd="8dp"
+            android:background="#40000000"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textView5" />
 
         <androidx.recyclerview.widget.RecyclerView
-            android:background="#40000000"
             android:id="@+id/recyclerView"
             android:layout_width="match_parent"
             android:layout_height="144dp"
             android:layout_marginStart="8dp"
             android:layout_marginTop="8dp"
             android:layout_marginEnd="8dp"
+            android:background="#40000000"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textView2" />
 
         <androidx.recyclerview.widget.RecyclerView
-            android:background="#40000000"
             android:id="@+id/recyclerViewUp"
             android:layout_width="match_parent"
             android:layout_height="144dp"
             android:layout_marginStart="8dp"
             android:layout_marginTop="8dp"
             android:layout_marginEnd="8dp"
+            android:background="#40000000"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textView3" />
 
         <TextView
             android:id="@+id/textView3"
-            android:background="#40000000"
             style="@style/xyz"
             android:layout_width="match_parent"
             android:layout_height="28dp"
             android:layout_marginStart="8dp"
             android:layout_marginTop="24dp"
             android:layout_marginEnd="8dp"
+            android:background="#40000000"
             android:text="@string/top_rated"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/recyclerView" />
 
-        <TextView
-            android:id="@+id/textView"
-            style="@style/xyz"
-            android:layout_width="wrap_content"
-            android:layout_height="0dp"
-            android:layout_marginTop="8dp"
-            android:gravity="center"
-            android:text="@string/filmypedia"
-            android:textSize="25dp"
-            android:textStyle="bold|italic"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
 
         <TextView
-            android:background="#40000000"
             android:id="@+id/textView2"
             style="@style/xyz"
             android:layout_width="match_parent"
@@ -112,14 +71,14 @@
             android:layout_marginStart="8dp"
             android:layout_marginTop="24dp"
             android:layout_marginEnd="8dp"
+            android:background="#40000000"
             android:text="@string/popular_movies"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.012"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textInputLayout2" />
+            app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
-            android:background="#40000000"
             android:id="@+id/textView5"
             style="@style/xyz"
             android:layout_width="match_parent"
@@ -127,24 +86,12 @@
             android:layout_marginStart="8dp"
             android:layout_marginTop="24dp"
             android:layout_marginEnd="8dp"
+            android:background="#40000000"
             android:text="@string/upcoming_movies"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.006"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/recyclerViewUp" />
-
-        <Button
-            android:id="@+id/button"
-            android:layout_width="46dp"
-            android:layout_height="46dp"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="30dp"
-            android:background="@drawable/ic_baseline_search_24"
-            android:textSize="12sp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toEndOf="@+id/textInputLayout2"
-            app:layout_constraintTop_toBottomOf="@+id/textView" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

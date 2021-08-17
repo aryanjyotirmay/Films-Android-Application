@@ -8,15 +8,14 @@
     android:layout_height="wrap_content"
     android:orientation="vertical">
 
-
     <com.mikhaellopez.circularimageview.CircularImageView
 
         android:id="@+id/movie_photo"
         android:layout_width="100dp"
-        android:importantForAccessibility="no"
         android:layout_height="100dp"
         android:layout_alignParentStart="true"
         android:layout_marginStart="2dp"
+        android:importantForAccessibility="no"
         android:scaleType="centerCrop"
         app:civ_border_color="#ffffff"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -62,13 +61,13 @@
         app:layout_constraintVertical_bias="0.974" />
 
     <TextView
-        android:layout_marginEnd="10dp"
         android:id="@+id/movie_rating"
         style="@style/xyz"
         android:layout_width="50dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="110dp"
         android:layout_marginTop="50dp"
+        android:layout_marginEnd="10dp"
         android:textSize="14dp"
         android:textStyle="italic"
         app:layout_constraintBottom_toTopOf="@+id/movie_title"

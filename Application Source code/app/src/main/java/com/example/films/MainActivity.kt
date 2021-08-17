@@ -1,15 +1,16 @@
 package com.example.films
 
+import android.app.SearchManager
 import android.content.ContentValues.TAG
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
-import android.view.KeyEvent
-import android.view.View
-import android.view.inputmethod.InputMethodManager
+import android.view.Menu
+import android.view.MenuItem
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.widget.SearchView
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.bekawestberg.loopinglayout.library.LoopingLayoutManager
 import com.example.films.databinding.ActivityMainBinding
@@ -19,37 +20,49 @@ import retrofit2.Callback
 import retrofit2.Response
 
 class MainActivity : AppCompatActivity() {
-    private lateinit var binding:ActivityMainBinding
+    private lateinit var binding: ActivityMainBinding
     override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        binding = ActivityMainBinding.inflate(layoutInflater)
-        setContentView(binding.root)
 
+        super.onCreate(savedInstanceState)
+
+        binding = ActivityMainBinding.inflate(layoutInflater)
+
+        setContentView(binding.root)
 
 
         Log.d(TAG, "onCreate: hereAryan")
 
         val request = ServiceBuilder.buildService(TmdbEndpoints::class.java)
+
         val call = request.getMovies(Constant.apiKey)
-
         val call2 = request.getMoviesTopRated(Constant.apiKey)
-
         val call3 = request.getMoviesUpcoming(Constant.apiKey)
+
         call.enqueue(object : Callback<PopularMovies> {
+
             override fun onResponse(call: Call<PopularMovies>, response: Response<PopularMovies>) {
+
                 if (response.isSuccessful) {
 
                     recyclerView.apply {
                         setHasFixedSize(true)
-                        layoutManager = LoopingLayoutManager(this@MainActivity,LinearLayoutManager.HORIZONTAL,false)
+                        layoutManager = LoopingLayoutManager(
+                            this@MainActivity,
+                            LinearLayoutManager.HORIZONTAL,
+                            false
+                        )
                         adapter = MoviesAdapter(response.body()!!.results)
+
                     }
 
                 }
+
             }
 
             override fun onFailure(call: Call<PopularMovies>, t: Throwable) {
+
                 Toast.makeText(this@MainActivity, "${t.message}", Toast.LENGTH_SHORT).show()
+
             }
         })
         call2.enqueue(object : Callback<PopularMovies> {
@@ -59,7 +72,11 @@ class MainActivity : AppCompatActivity() {
                     Log.d(TAG, "onResponse: inside if loop")
                     recyclerViewUp.apply {
                         setHasFixedSize(true)
-                        layoutManager = LoopingLayoutManager(this@MainActivity,LinearLayoutManager.HORIZONTAL,false)
+                        layoutManager = LoopingLayoutManager(
+                            this@MainActivity,
+                            LinearLayoutManager.HORIZONTAL,
+                            false
+                        )
                         adapter = MoviesAdapter(response.body()!!.results)
                     }
 
@@ -76,7 +93,11 @@ class MainActivity : AppCompatActivity() {
 
                     recyclerViewLat.apply {
                         setHasFixedSize(true)
-                        layoutManager = LoopingLayoutManager(this@MainActivity,LinearLayoutManager.HORIZONTAL,false)
+                        layoutManager = LoopingLayoutManager(
+                            this@MainActivity,
+                            LinearLayoutManager.HORIZONTAL,
+                            false
+                        )
                         adapter = MoviesAdapter(response.body()!!.results)
                     }
 
@@ -89,31 +110,62 @@ class MainActivity : AppCompatActivity() {
         })
 
 
-        binding.button?.setOnClickListener{
-
-            val searchTerm = binding.editText?.text.toString()
-            if(searchTerm.count()!=0){
-            val i = Intent(this,SearchActivity::class.java)
-            i.putExtra("search",searchTerm)
-            startActivity(i)}
-        }
-
-
-        binding.editText?.setOnKeyListener{ view, keyCode, _ -> handleKeyEvent(view,keyCode)}
-
-
-    }
-    private fun handleKeyEvent(view: View, keyCode: Int): Boolean {
-        if (keyCode == KeyEvent.KEYCODE_ENTER) {
-            // Hide the keyboard
-            val inputMethodManager =
-                getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
-            inputMethodManager.hideSoftInputFromWindow(view.windowToken, 0)
-            return true
-        }
-        return false
     }
 
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+
+        val inflater = menuInflater
+        inflater.inflate(R.menu.menu_items, menu)
+
+        val manager = getSystemService(Context.SEARCH_SERVICE) as SearchManager
+
+        val searchMov = menu?.findItem(R.id.search_item)
+
+        val searchView = searchMov?.actionView as SearchView
+
+        searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
+            override fun onQueryTextSubmit(query: String?): Boolean {
+                searchView.clearFocus()
+                searchView.setQuery("", false)
+                searchView.onActionViewCollapsed()
+                searchHandler(query.toString())
+                return true
+            }
+
+            override fun onQueryTextChange(newText: String?): Boolean {
+                return false
+            }
+        })
+
+        return true
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when (item.itemId) {
+
+            R.id.watch_later -> {
+                Toast.makeText(this, "watch later", Toast.LENGTH_SHORT).show()
+            }
+
+            R.id.favourites -> {
+
+                val iFav = Intent(this,FavouritesActivity::class.java)
+                startActivity(iFav)
+
+            }
+
+        }
+
+        return true
+    }
+
+    fun searchHandler(searchTerm: String) {
+        if (searchTerm.count() != 0) {
+            val i = Intent(this, SearchActivity::class.java)
+            i.putExtra("search", searchTerm)
+            startActivity(i)
+        }
+    }
 
 
 }
