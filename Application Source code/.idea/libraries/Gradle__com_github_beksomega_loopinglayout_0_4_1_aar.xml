@@ -1,0 +1,13 @@
+<component name="libraryTable">
+  <library name="Gradle: com.github.beksomega:loopinglayout:0.4.1@aar">
+    <CLASSES>
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/773352b90a374839aa0cf77d480e7bf0/loopinglayout-0.4.1/jars/classes.jar!/" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/773352b90a374839aa0cf77d480e7bf0/loopinglayout-0.4.1/res" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/773352b90a374839aa0cf77d480e7bf0/loopinglayout-0.4.1/AndroidManifest.xml" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.github.beksomega/loopinglayout/0.4.1/bfe0705b372aa80e4c429b6a6e0c95402b9082cb/loopinglayout-0.4.1-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>
