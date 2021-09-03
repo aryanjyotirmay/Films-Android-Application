@@ -11,7 +11,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:scaleType="centerCrop"
-        android:src="@drawable/_textured_paper_with_leather_burgundy_background___very_best_portraits"
+        android:src="@drawable/grad"
         tools:layout_editor_absoluteX="99dp"
         tools:layout_editor_absoluteY="209dp" />
 

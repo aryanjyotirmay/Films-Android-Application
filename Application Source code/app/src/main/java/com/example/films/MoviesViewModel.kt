@@ -21,6 +21,10 @@ class MoviesViewModel(application: Application) : AndroidViewModel(application) 
         repository.delete(movie)
     }
 
+    fun deleteIdMovie(movieId: Int) = viewModelScope.launch(Dispatchers.IO) {
+        repository.deleteMovieById(movieId)
+    }
+
     fun insertMovie(movie: FavouritesTable) = viewModelScope.launch(Dispatchers.IO) {
         repository.insert(movie)
     }

@@ -5,6 +5,7 @@ import android.content.Context
 import android.content.Intent
 import android.graphics.drawable.Drawable
 import android.os.Bundle
+import android.speech.RecognizerIntent
 import android.view.Menu
 import android.view.MenuItem
 import android.widget.TextView
@@ -23,8 +24,8 @@ import retrofit2.Response
 class SearchActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_similar_movies)
 
+        setContentView(R.layout.activity_similar_movies)
 
         val searchTerm = intent?.extras?.getString("search").toString()
 
@@ -35,8 +36,8 @@ class SearchActivity : AppCompatActivity() {
 
         callSearch.enqueue(object : Callback<PopularMovies> {
             override fun onResponse(call: Call<PopularMovies>, response: Response<PopularMovies>) {
-                if (response.isSuccessful) {
 
+                if (response.isSuccessful) {
                     recyclerViewSimilar.apply {
                         setHasFixedSize(true)
                         layoutManager = GridLayoutManager(this@SearchActivity, 2)
@@ -73,10 +74,10 @@ class SearchActivity : AppCompatActivity() {
 
         searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(query: String?): Boolean {
-               // searchView.clearFocus()
+                // searchView.clearFocus()
                 searchView.setQuery("", false)
                 searchView.onActionViewCollapsed()
-                searchHandler(query.toString())
+                Navigator.searchHandler(this@SearchActivity,query.toString())
                 return true
             }
 
@@ -91,12 +92,18 @@ class SearchActivity : AppCompatActivity() {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
 
-            R.id.watch_later -> {
-                Toast.makeText(this, "watch later", Toast.LENGTH_SHORT).show()
+            R.id.voice_search -> {
+                voiceSearch()
             }
 
             R.id.favourites -> {
-                Toast.makeText(this, "favourites", Toast.LENGTH_SHORT).show()
+                val iFav = Intent(this, FavouritesActivity::class.java)
+                startActivity(iFav)
+            }
+
+            R.id.nearby_movie -> {
+                val iMap = Intent(this,MapsActivity::class.java)
+                startActivity(iMap)
             }
 
         }
@@ -104,11 +111,24 @@ class SearchActivity : AppCompatActivity() {
         return true
     }
 
-    fun searchHandler(searchTerm: String) {
-        if (searchTerm.count() != 0) {
-            val i = Intent(this, SearchActivity::class.java)
-            i.putExtra("search", searchTerm)
-            startActivity(i)
+    private fun voiceSearch() {
+        val voiceIntent = Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH)
+        voiceIntent.putExtra(
+            RecognizerIntent.EXTRA_LANGUAGE_MODEL,
+            RecognizerIntent.LANGUAGE_MODEL_FREE_FORM
+        )
+        startActivityIfNeeded(voiceIntent, 200)
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if (requestCode == 200 && resultCode == RESULT_OK) {
+            val array =
+                ArrayList<String>(data?.getStringArrayListExtra(RecognizerIntent.EXTRA_RESULTS))
+            val voiceText = array[0]
+            Navigator.searchHandler(this@SearchActivity,voiceText)
+        } else {
+            Toast.makeText(this, "Something went wrong", Toast.LENGTH_SHORT).show()
         }
     }
 }

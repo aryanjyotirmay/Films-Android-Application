@@ -5,6 +5,7 @@ import android.content.ContentValues.TAG
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import android.speech.RecognizerIntent
 import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
@@ -20,23 +21,21 @@ import retrofit2.Callback
 import retrofit2.Response
 
 class MainActivity : AppCompatActivity() {
+    private lateinit var voiceText: String
     private lateinit var binding: ActivityMainBinding
     override fun onCreate(savedInstanceState: Bundle?) {
 
         super.onCreate(savedInstanceState)
 
         binding = ActivityMainBinding.inflate(layoutInflater)
-
         setContentView(binding.root)
-
-
-        Log.d(TAG, "onCreate: hereAryan")
 
         val request = ServiceBuilder.buildService(TmdbEndpoints::class.java)
 
         val call = request.getMovies(Constant.apiKey)
         val call2 = request.getMoviesTopRated(Constant.apiKey)
         val call3 = request.getMoviesUpcoming(Constant.apiKey)
+        val call4 = request.getMovies(Constant.apiKey)
 
         call.enqueue(object : Callback<PopularMovies> {
 
@@ -52,11 +51,8 @@ class MainActivity : AppCompatActivity() {
                             false
                         )
                         adapter = MoviesAdapter(response.body()!!.results)
-
                     }
-
                 }
-
             }
 
             override fun onFailure(call: Call<PopularMovies>, t: Throwable) {
@@ -109,6 +105,19 @@ class MainActivity : AppCompatActivity() {
             }
         })
 
+        call4.enqueue(object: Callback<PopularMovies> {
+            override fun onResponse(call: Call<PopularMovies>, response: Response<PopularMovies>) {
+                if (response.isSuccessful) {
+                    view_pager.adapter = ViewPagerAdapter(response.body()!!.results)
+                }
+            }
+
+            override fun onFailure(call: Call<PopularMovies>, t: Throwable) {
+                Toast.makeText(this@MainActivity, "${t.message}", Toast.LENGTH_SHORT).show()
+            }
+
+        })
+
 
     }
 
@@ -128,7 +137,7 @@ class MainActivity : AppCompatActivity() {
                 searchView.clearFocus()
                 searchView.setQuery("", false)
                 searchView.onActionViewCollapsed()
-                searchHandler(query.toString())
+                Navigator.searchHandler(this@MainActivity,query.toString())
                 return true
             }
 
@@ -143,15 +152,19 @@ class MainActivity : AppCompatActivity() {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
 
-            R.id.watch_later -> {
-                Toast.makeText(this, "watch later", Toast.LENGTH_SHORT).show()
+            R.id.voice_search -> {
+                voiceSearch()
             }
 
             R.id.favourites -> {
 
-                val iFav = Intent(this,FavouritesActivity::class.java)
+                val iFav = Intent(this, FavouritesActivity::class.java)
                 startActivity(iFav)
 
+            }
+            R.id.nearby_movie -> {
+                val iMap = Intent(this,MapsActivity::class.java)
+                startActivity(iMap)
             }
 
         }
@@ -159,13 +172,24 @@ class MainActivity : AppCompatActivity() {
         return true
     }
 
-    fun searchHandler(searchTerm: String) {
-        if (searchTerm.count() != 0) {
-            val i = Intent(this, SearchActivity::class.java)
-            i.putExtra("search", searchTerm)
-            startActivity(i)
-        }
+    private fun voiceSearch() {
+        val voiceIntent = Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH)
+        voiceIntent.putExtra(
+            RecognizerIntent.EXTRA_LANGUAGE_MODEL,
+            RecognizerIntent.LANGUAGE_MODEL_FREE_FORM
+        )
+        startActivityIfNeeded(voiceIntent, 200)
     }
 
-
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if (requestCode == 200 && resultCode == RESULT_OK) {
+            val array =
+                ArrayList<String>(data?.getStringArrayListExtra(RecognizerIntent.EXTRA_RESULTS))
+            voiceText = array[0]
+            Navigator.searchHandler(this@MainActivity,voiceText)
+        } else {
+            Toast.makeText(this, "Voice Search Terminated", Toast.LENGTH_SHORT).show()
+        }
+    }
 }

@@ -11,22 +11,37 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:scaleType="centerCrop"
-        android:src="@drawable/_textured_paper_with_leather_burgundy_background___very_best_portraits"
+        android:src="@drawable/grad"
         tools:layout_editor_absoluteX="99dp"
         tools:layout_editor_absoluteY="209dp" />
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/fav_recycler"
+
+    <TextView
+        android:id="@+id/no_fav"
+        style="@style/textBack"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="50dp"
-        android:layout_marginEnd="8dp"
-        android:background="#40000000"
+        android:gravity="center"
+        android:text="@string/no_favourites_added"
+        android:textSize="16sp"
+        android:textStyle="bold|italic"
+        app:layout_constraintBottom_toTopOf="@+id/backImage"
+        app:layout_constraintEnd_toStartOf="@+id/backImage"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/backImage" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/fav_recycler"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingTop="16dp"
+        android:paddingBottom="16dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/fav_header" />
 
     <TextView
         android:id="@+id/fav_header"
@@ -37,11 +52,12 @@
         android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
         android:gravity="center"
-        android:textSize="20dp"
         android:text="@string/favourites"
+        android:textSize="20dp"
         android:textStyle="bold|italic"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="@+id/backImage" />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

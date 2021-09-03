@@ -2,51 +2,94 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="166dp"
+    android:id="@+id/item_fav_layout"
+    android:layout_width="150dp"
     android:layout_height="wrap_content"
+    android:layout_margin="4dp"
+    android:background="@drawable/grad2"
     android:orientation="vertical">
 
     <ImageView
         android:id="@+id/fav_pos"
-        android:layout_width="166dp"
-        android:layout_height="242dp"
+        android:layout_width="118dp"
+        android:layout_height="172dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:importantForAccessibility="no"
+        app:layout_constraintBottom_toTopOf="@+id/fav_title"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/fav_title"
-        android:layout_width="121dp"
+        android:layout_width="138dp"
         android:layout_height="wrap_content"
-        android:textColor="@color/white"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="2dp"
+        android:layout_marginEnd="8dp"
+        android:background="#50000000"
         android:padding="4dp"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:textColor="@color/white"
+        app:layout_constraintBottom_toTopOf="@id/fav_linear"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/fav_pos" />
+        app:layout_constraintTop_toBottomOf="@+id/fav_pos" />
 
     <TextView
         android:id="@+id/fav_rat"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        tools:text="4.5"
+        android:background="@drawable/grad"
         android:padding="4dp"
-        android:background="#3d141e"
-        android:textStyle="italic"
         android:textColor="@color/white"
-        app:layout_constraintTop_toTopOf="@id/fav_pos"
+        android:textStyle="italic"
         app:layout_constraintStart_toStartOf="@id/fav_pos"
-        />
+        app:layout_constraintTop_toTopOf="@id/fav_pos"
+        tools:text="4.5" />
 
-    <Button
-        android:id="@+id/fav_del"
-        android:layout_width="45dp"
-        android:layout_height="50dp"
-        android:backgroundTint="#50000000"
-        android:drawableTop="@drawable/ic_baseline_delete_24"
+    <ProgressBar
+        android:id="@+id/fav_progress"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:indeterminateTint="#FFFFFF"
+        app:layout_constraintBottom_toBottomOf="@+id/fav_pos"
+        app:layout_constraintEnd_toEndOf="@+id/fav_pos"
+        app:layout_constraintStart_toStartOf="@+id/fav_pos"
+        app:layout_constraintTop_toTopOf="@id/fav_pos" />
+
+
+    <LinearLayout
+        android:id="@+id/fav_linear"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="2dp"
+        android:layout_marginBottom="8dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/fav_pos"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/fav_title">
+
+        <ImageButton
+            android:id="@+id/fav_review"
+            android:layout_width="69dp"
+            android:layout_height="wrap_content"
+            android:background="#50000000"
+            android:importantForAccessibility="no"
+            android:padding="4dp"
+            android:src="@drawable/ic_baseline_rate_review_24"/>
+
+        <ImageButton
+            android:id="@+id/fav_del"
+            android:layout_width="69dp"
+            android:layout_height="wrap_content"
+            android:background="#50000000"
+            android:importantForAccessibility="no"
+            android:padding="4dp"
+            android:src="@drawable/ic_baseline_delete_24"/>
+
+    </LinearLayout>
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

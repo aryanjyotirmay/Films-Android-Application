@@ -1,14 +1,17 @@
 package com.example.films
 
+import android.annotation.SuppressLint
 import android.content.ContentValues.TAG
 import android.content.Intent
 import android.graphics.drawable.Drawable
 import android.os.Bundle
 import android.text.method.ScrollingMovementMethod
 import android.util.Log
+import android.view.MotionEvent
 import android.view.View
 import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.view.isVisible
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.bumptech.glide.Glide
@@ -18,9 +21,11 @@ import com.bumptech.glide.request.RequestListener
 import com.bumptech.glide.request.target.Target
 import com.example.films.databinding.ActivityDetailsBinding
 import kotlinx.android.synthetic.main.activity_details.*
+import kotlinx.android.synthetic.main.activity_favourites.*
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+
 
 class DetailsActivity : AppCompatActivity() {
     lateinit var viewModel: MoviesViewModel
@@ -29,6 +34,8 @@ class DetailsActivity : AppCompatActivity() {
     private var posPath: String? = null
     private var name: String? = null
     private lateinit var dBinding: ActivityDetailsBinding
+
+    @SuppressLint("ClickableViewAccessibility")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         dBinding = ActivityDetailsBinding.inflate(layoutInflater)
@@ -40,32 +47,34 @@ class DetailsActivity : AppCompatActivity() {
         val bar: ProgressBar = findViewById(R.id.progressBar)
         val titleMov: TextView = findViewById(R.id.title_2)
         val overviewMov: TextView = findViewById(R.id.overview_2)
-        overviewMov.movementMethod = ScrollingMovementMethod()
         val relDate: TextView = findViewById(R.id.textView4)
         val imgdisp: ImageView = findViewById(R.id.poster_2)
         val imgbg: ImageView = findViewById(R.id.imageView)
         val stars: TextView = findViewById(R.id.rating_2)
 
-        viewModel = ViewModelProvider(this,
-            ViewModelProvider.AndroidViewModelFactory.getInstance(application)).get(MoviesViewModel::class.java)
-
-        dBinding.buttonShare.setOnClickListener {
-            shareButton()
+        overviewMov.movementMethod = ScrollingMovementMethod()
+        overviewMov.setOnTouchListener { v, event ->
+            when (event.action) {
+                MotionEvent.ACTION_DOWN ->
+                    v.parent.requestDisallowInterceptTouchEvent(true)
+                MotionEvent.ACTION_UP ->
+                    v.parent.requestDisallowInterceptTouchEvent(false)
+            }
+            false
         }
 
-        dBinding.button3.setOnClickListener {
-            seeReviews()
-        }
+        viewModel = ViewModelProvider(
+            this,
+            ViewModelProvider.AndroidViewModelFactory.getInstance(application)
+        ).get(MoviesViewModel::class.java)
 
         dBinding.poster2.setOnClickListener {
-            zoomImg()
-        }
-
-        dBinding.button5.setOnClickListener {
-            similarMovies()
+            posPath?.let { it1 -> Navigator.zoomImg(this, it1) }
         }
 
 
+        dBinding.btnFavRemove.isVisible = false
+        dBinding.btnFav.isVisible = true
 
         bar.visibility = View.VISIBLE
         val req = ServiceBuilder.buildService(TmdbEndpoints::class.java)
@@ -86,9 +95,12 @@ class DetailsActivity : AppCompatActivity() {
                     relDate.text = "Date:" + movieDet.release_date
                     titleMov.text = movieDet.title
                     name = movieDet.title
-                    stars.text = "★: ${movieDet.vote_average}"
+                    stars.text = "★: ${movieDet.vote_average}" + " (${movieDet.vote_count})"
+
+                    quote_movie.text = "'${movieDet.tagline}'"
                     themeImage = response.body()?.backdrop_path
                     posPath = movieDet.poster_path.toString()
+
                     Glide.with(this@DetailsActivity)
                         .load("https://image.tmdb.org/t/p/w500${posPath}").into(imgdisp)
                     Glide.with(this@DetailsActivity)
@@ -117,15 +129,21 @@ class DetailsActivity : AppCompatActivity() {
                             }
                         }).into(imgbg)
 
+                    val mov = movieDet.id.toString()
+
+
 
                     dBinding.btnFav.setOnClickListener {
-
-                        val mov = movieDet.id.toString()
-                        if (mov.isNotEmpty()){
-
+                        if (mov.isNotEmpty()) {
                             viewModel.insertMovie(FavouritesTable(mov))
+                            dBinding.btnFav.isVisible = false
+                            dBinding.btnFavRemove.isVisible = true
                         }
-
+                    }
+                    dBinding.btnFavRemove.setOnClickListener {
+                        viewModel.deleteIdMovie(mov.toInt())
+                        dBinding.btnFav.isVisible = true
+                        dBinding.btnFavRemove.isVisible = false
 
                     }
 
@@ -154,7 +172,6 @@ class DetailsActivity : AppCompatActivity() {
                         )
                         adapter = CastAdapter(response.body()!!.cast)
                     }
-
                 }
             }
 
@@ -162,50 +179,62 @@ class DetailsActivity : AppCompatActivity() {
                 Toast.makeText(this@DetailsActivity, "${t.message}", Toast.LENGTH_SHORT).show()
             }
         })
+        dBinding.buttonShare.setOnClickListener {
+            name?.let { it1 -> posPath?.let { it2 -> Navigator.shareButton(this, it1, it2) } }
+        }
 
-
-    }
-
-
-    fun shareButton() {
-
-        val sh = Intent(Intent.ACTION_SEND)
-        sh.type = "text/plain"
-        sh.putExtra(
-            Intent.EXTRA_TEXT,
-            "Come watch '$name' with me: https://image.tmdb.org/t/p/w500$posPath"
-        )
-
-        val choose = Intent.createChooser(sh, "Share this movie")
-        startActivity(choose)
-
-    }
-
-
-    fun zoomImg() {
-        val i: Intent = Intent(this, enlarge::class.java)
-        i.putExtra("imgurl", posPath)
-        startActivity(i)
+        dBinding.button5.setOnClickListener {
+            name?.let { it1 ->
+                themeImage?.let { it2 ->
+                    Navigator.similarMovies(
+                        this,
+                        id,
+                        it1,
+                        it2
+                    )
+                }
+            }
+        }
+        dBinding.button3.setOnClickListener {
+            name?.let { it1 -> Navigator.seeReviews(this, id, it1) }
+        }
 
     }
-
-    fun similarMovies() {
-
-        val intent = Intent(this, SimilarMoviesActivity::class.java)
-        intent.putExtra("id", id)
-        intent.putExtra("title", name)
-        intent.putExtra("themeImage", themeImage)
-        startActivity(intent)
-
-
-    }
-
-    fun seeReviews() {
-
-        val reviewIntent = Intent(this, ImageCollections::class.java)
-        reviewIntent.putExtra("id", id)
-        reviewIntent.putExtra("title", name)
-        startActivity(reviewIntent)
-    }
-
 }
+
+
+//    fun shareButton() {
+//
+//        val sh = Intent(Intent.ACTION_SEND)
+//        sh.type = "text/plain"
+//        sh.putExtra(
+//            Intent.EXTRA_TEXT,
+//            "Come watch '$name' with me: https://image.tmdb.org/t/p/w500$posPath"
+//        )
+//
+//        val choose = Intent.createChooser(sh, "Share this movie")
+//        startActivity(choose)
+//
+//    }
+
+//    fun zoomImg() {
+//        val i: Intent = Intent(this, enlarge::class.java)
+//        i.putExtra("imgurl", posPath)
+//        startActivity(i)
+//
+//    }
+
+//    fun similarMovies() {
+//        val intent = Intent(this, SimilarMoviesActivity::class.java)
+//        intent.putExtra("id", id)
+//        intent.putExtra("title", name)
+//        intent.putExtra("themeImage", themeImage)
+//        startActivity(intent)
+//    }
+
+//    fun seeReviews() {
+//        val reviewIntent = Intent(this, ImageCollections::class.java)
+//        reviewIntent.putExtra("id", id)
+//        reviewIntent.putExtra("title", name)
+//        startActivity(reviewIntent)
+//    }

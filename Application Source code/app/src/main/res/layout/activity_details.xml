@@ -1,189 +1,228 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <ImageView
-        android:id="@+id/imageView"
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="#b35458"
-        android:importantForAccessibility="no"
-        android:scaleType="centerCrop" />
+        android:layout_height="match_parent">
 
-    <ImageView
-        android:id="@+id/poster_2"
-        android:layout_width="166dp"
-        android:layout_height="242dp"
-        android:layout_marginStart="10dp"
-        android:layout_marginTop="24dp"
-        android:contentDescription="@string/movie_poster"
-        android:scaleType="centerInside"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        <ImageView
+            android:id="@+id/imageView"
+            android:layout_width="432dp"
+            android:layout_height="878dp"
+            android:background="#b35458"
+            android:importantForAccessibility="no"
+            android:scaleType="centerCrop"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
-    <TextView
-        android:id="@+id/title_2"
-        style="@style/textBack2"
-        android:layout_width="187dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="24dp"
-        android:gravity="start"
-        android:textColor="#FFFFFF"
-        android:textSize="25dp"
-        android:textStyle="bold|italic"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:text="Title" />
+        <ImageView
+            android:id="@+id/poster_2"
+            android:layout_width="166dp"
+            android:layout_height="242dp"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="24dp"
+            android:contentDescription="@string/movie_poster"
+            android:scaleType="centerInside"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
-
-    <TextView
-        android:id="@+id/overview_2"
-        style="@style/textBack"
-        android:layout_width="match_parent"
-        android:layout_height="200dp"
-        android:layout_marginStart="10dp"
-        android:layout_marginTop="16dp"
-        android:fadeScrollbars="false"
-        android:padding="16dp"
-        android:scrollbarSize="5dp"
-        android:scrollbars="vertical"
-        android:textColor="@color/white"
-        android:textSize="18dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/poster_2"
-        tools:text="Overview" />
-
-    <TextView
-        android:id="@+id/rating_2"
-        style="@style/textBack2"
-        android:layout_width="187dp"
-        android:layout_height="30dp"
-        android:gravity="start"
-        android:textColor="#ffffff"
-        android:textSize="20dp"
-        android:textStyle="italic"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/title_2"
-        tools:text="Rating" />
-
-    <TextView
-        android:id="@+id/textView4"
-        style="@style/textBack2"
-        android:layout_width="187dp"
-        android:layout_height="32dp"
-        android:textColor="@color/white"
-        android:textSize="15dp"
-        android:textStyle="italic"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/rating_2"
-        tools:text="10/20/20" />
-
-    <ImageButton
-        android:id="@+id/button_share"
-        android:layout_width="46dp"
-        android:layout_height="46dp"
-        android:layout_marginEnd="40dp"
-        android:layout_marginBottom="16dp"
-        android:src="@drawable/ic_baseline_share_24"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
-
-    <ImageButton
-        android:id="@+id/button2"
-        android:layout_width="46dp"
-        android:layout_height="46dp"
-        android:layout_marginBottom="16dp"
-        android:src="@drawable/ic_baseline_home_24"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/imageView"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toEndOf="@+id/imageView" />
-
-    <ImageButton
-
-        android:id="@+id/button3"
-        android:layout_width="46dp"
-        android:layout_height="46dp"
-        android:layout_marginStart="40dp"
-        android:layout_marginBottom="16dp"
-        android:src="@drawable/ic_baseline_rate_review_24"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        <TextView
+            android:id="@+id/title_2"
+            style="@style/textBack2"
+            android:layout_width="187dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            android:gravity="start"
+            android:textColor="#FFFFFF"
+            android:textSize="25dp"
+            android:textStyle="bold|italic"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="Title" />
 
 
-    <ProgressBar
-        android:id="@+id/progressBar"
-        style="?android:attr/progressBarStyle"
-        android:layout_width="70dp"
-        android:layout_height="70dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        <TextView
+            android:id="@+id/overview_2"
+            style="@style/textBack"
+            android:layout_width="match_parent"
+            android:layout_height="200dp"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="16dp"
+            android:fadeScrollbars="false"
+            android:padding="16dp"
+            android:scrollbarSize="5dp"
+            android:scrollbars="vertical"
+            android:textColor="@color/white"
+            android:textSize="18dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/poster_2"
+            tools:text="Overview" />
 
-    <Button
-        android:id="@+id/button5"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="10dp"
-        android:layout_marginBottom="8dp"
-        android:backgroundTint="#50000000"
-        android:text="@string/browse_similar"
-        android:textAllCaps="false"
-        android:textSize="14dp"
-        app:layout_constraintBottom_toTopOf="@+id/overview_2"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView4" />
+        <TextView
+            android:id="@+id/rating_2"
+            style="@style/textBack2"
+            android:layout_width="187dp"
+            android:layout_height="30dp"
+            android:gravity="start"
+            android:textColor="#ffffff"
+            android:textSize="20dp"
+            android:textStyle="italic"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/title_2"
+            tools:text="Rating" />
+
+        <TextView
+            android:id="@+id/textView4"
+            style="@style/textBack2"
+            android:layout_width="187dp"
+            android:layout_height="32dp"
+            android:textColor="@color/white"
+            android:textSize="15dp"
+            android:textStyle="italic"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/rating_2"
+            tools:text="10/20/20" />
+
+        <ImageButton
+            android:id="@+id/button_share"
+            android:layout_width="46dp"
+            android:layout_height="46dp"
+            android:layout_marginTop="24dp"
+            android:layout_marginEnd="16dp"
+            android:src="@drawable/ic_baseline_share_24"
+            app:layout_constraintEnd_toEndOf="@+id/cast_recycler"
+            app:layout_constraintTop_toBottomOf="@+id/cast_recycler" />
+
+        <ImageButton
+            android:id="@+id/button2"
+            android:layout_width="46dp"
+            android:layout_height="46dp"
+            android:layout_marginTop="24dp"
+            android:src="@drawable/ic_baseline_home_24"
+            app:layout_constraintEnd_toStartOf="@+id/button_share"
+            app:layout_constraintStart_toEndOf="@+id/button3"
+            app:layout_constraintTop_toBottomOf="@+id/cast_recycler" />
+
+        <ImageButton
+
+            android:id="@+id/button3"
+            android:layout_width="46dp"
+            android:layout_height="46dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="24dp"
+            android:src="@drawable/ic_baseline_rate_review_24"
+            app:layout_constraintStart_toStartOf="@+id/cast_recycler"
+            app:layout_constraintTop_toBottomOf="@+id/cast_recycler" />
 
 
-    <Button
-        android:id="@+id/btn_fav"
-        android:layout_width="45dp"
-        android:layout_height="50dp"
-        android:layout_marginStart="40dp"
-        android:backgroundTint="#50000000"
-        android:drawableTop="@drawable/ic_baseline_star_24"
-        app:layout_constraintEnd_toStartOf="@+id/button5"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toEndOf="@+id/poster_2"
-        app:layout_constraintTop_toTopOf="@+id/button5" />
+        <ProgressBar
+            android:id="@+id/progressBar"
+            style="?android:attr/progressBarStyle"
+            android:layout_width="70dp"
+            android:layout_height="70dp"
+            android:indeterminateTint="#FFFFFF"
+            app:layout_constraintBottom_toBottomOf="@+id/overview_2"
+            app:layout_constraintEnd_toEndOf="@+id/overview_2"
+            app:layout_constraintStart_toStartOf="@+id/overview_2"
+            app:layout_constraintTop_toTopOf="@+id/overview_2" />
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/cast_recycler"
-        style="@style/textBack"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="10dp"
-        android:layout_marginTop="50dp"
-        android:layout_marginBottom="16dp"
-        app:layout_constraintBottom_toTopOf="@+id/button3"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/overview_2"
-        app:layout_constraintVertical_bias="0.032" />
-
-    <TextView
-        android:id="@+id/textView6"
-        style="@style/textBack"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="10dp"
-        android:layout_marginTop="50dp"
-        android:text="@string/cast"
-        android:textSize="20dp"
-        app:layout_constraintBottom_toTopOf="@+id/cast_recycler"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/overview_2"
-        app:layout_constraintVertical_bias="1.0" />
+        <Button
+            android:id="@+id/button5"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="10dp"
+            android:layout_marginBottom="8dp"
+            android:backgroundTint="#50000000"
+            android:text="@string/browse_similar"
+            android:textAllCaps="false"
+            android:textSize="14dp"
+            app:layout_constraintBottom_toTopOf="@+id/overview_2"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textView4" />
 
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+        <Button
+            android:id="@+id/btn_fav"
+            android:layout_width="45dp"
+            android:layout_height="50dp"
+            android:layout_marginStart="40dp"
+            android:backgroundTint="#50000000"
+            android:drawableTop="@drawable/ic_baseline_star_outline_24"
+            app:layout_constraintEnd_toStartOf="@+id/button5"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toEndOf="@+id/poster_2"
+            app:layout_constraintTop_toTopOf="@+id/button5" />
+
+        <Button
+            android:id="@+id/btn_fav_remove"
+            android:layout_width="45dp"
+            android:layout_height="50dp"
+            android:layout_marginStart="40dp"
+            android:backgroundTint="#50000000"
+            android:drawableTop="@drawable/ic_baseline_star_24"
+            app:layout_constraintEnd_toStartOf="@+id/button5"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toEndOf="@+id/poster_2"
+            app:layout_constraintTop_toTopOf="@+id/button5" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/cast_recycler"
+            style="@style/textBack"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="50dp"
+            android:layout_marginBottom="16dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/overview_2"
+            app:layout_constraintVertical_bias="0.03" />
+
+        <TextView
+            android:id="@+id/textView6"
+            style="@style/textBack"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="50dp"
+            android:text="@string/cast"
+            android:textSize="20dp"
+            app:layout_constraintBottom_toTopOf="@+id/cast_recycler"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/overview_2"
+            app:layout_constraintVertical_bias="1.0" />
+
+        <TextView
+            android:id="@+id/quote_movie"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="16dp"
+            android:background="#50000000"
+            android:gravity="center"
+            android:padding="4dp"
+            android:textColor="@color/white"
+            android:textSize="12dp"
+            android:textStyle="bold|italic"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/button2"
+            tools:text="hello fellas this is a quote from the movie" />
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</ScrollView>

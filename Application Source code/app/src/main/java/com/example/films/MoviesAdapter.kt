@@ -37,7 +37,6 @@ class MoviesViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
     private val rating: TextView = itemView.findViewById(R.id.movie_rating)
     private val parentLayout: RelativeLayout = itemView.findViewById(R.id.parent_layout)
 
-
     fun bind(movie: Result) {
         bar.visibility = View.VISIBLE
         val drawable: Drawable? = ResourcesCompat.getDrawable(
@@ -78,7 +77,6 @@ class MoviesViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
             if (movie.poster_path == null) {
                 Toast.makeText(itemView.context, "No Data Available :(", Toast.LENGTH_SHORT).show()
             }
-
             if (movie.poster_path != null) {
                 Toast.makeText(itemView.context, movie.title, Toast.LENGTH_SHORT).show()
                 Log.d("TAG", "bind:Chal gaya ")
@@ -88,8 +86,5 @@ class MoviesViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
                 itemView.context.startActivity(intent)
             }
         }
-
-
     }
-
 }

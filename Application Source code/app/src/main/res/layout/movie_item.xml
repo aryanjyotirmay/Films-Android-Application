@@ -9,7 +9,6 @@
     android:orientation="vertical">
 
     <com.mikhaellopez.circularimageview.CircularImageView
-
         android:id="@+id/movie_photo"
         android:layout_width="100dp"
         android:layout_height="100dp"
@@ -31,8 +30,6 @@
         android:layout_height="48dp"
         android:layout_alignStart="@+id/movie_photo"
         android:layout_alignEnd="@+id/movie_photo"
-
-
         android:layout_alignBottom="@+id/movie_photo"
         android:layout_alignParentTop="true"
         android:layout_marginStart="30dp"

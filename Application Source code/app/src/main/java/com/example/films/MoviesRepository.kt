@@ -14,4 +14,8 @@ class MoviesRepository(private val moviesDao: FavouritesDao) {
         moviesDao.delete(movie)
     }
 
+
+    fun deleteMovieById(movId: Int) {
+        moviesDao.deleteMovieById(movId)
+    }
 }
