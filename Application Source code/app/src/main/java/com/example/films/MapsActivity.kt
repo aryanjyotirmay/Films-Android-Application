@@ -38,6 +38,10 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
             fetchAndMark()
         }
 
+        binding.getTheaters.setOnClickListener {
+            Toast.makeText(this,"Feature yet to be implemented",Toast.LENGTH_SHORT).show()
+        }
+
     }
 
     private fun fetchAndMark() {
