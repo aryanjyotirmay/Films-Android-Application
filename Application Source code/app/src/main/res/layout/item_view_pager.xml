@@ -8,7 +8,7 @@
 
     <ImageView
         android:id="@+id/image_vp"
-        android:layout_width="430dp"
+        android:layout_width="match_parent"
         android:layout_height="238dp"
         android:scaleType="centerCrop"
         android:padding="16dp"
@@ -17,7 +17,6 @@
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        android:background="@drawable/grad"
          />
 
     <TextView

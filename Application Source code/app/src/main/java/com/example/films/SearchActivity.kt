@@ -41,7 +41,7 @@ class SearchActivity : AppCompatActivity() {
                     recyclerViewSimilar.apply {
                         setHasFixedSize(true)
                         layoutManager = GridLayoutManager(this@SearchActivity, 2)
-                        adapter = MoviesAdapter(response.body()!!.results)
+                        adapter = MoviesAdapter2(response.body()!!.results)
                     }
 
                 }

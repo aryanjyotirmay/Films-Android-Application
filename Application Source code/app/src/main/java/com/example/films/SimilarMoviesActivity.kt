@@ -42,7 +42,7 @@ class SimilarMoviesActivity : AppCompatActivity() {
                     recyclerViewSimilar.apply {
                         setHasFixedSize(true)
                         layoutManager = GridLayoutManager(this@SimilarMoviesActivity, 2)
-                        adapter = MoviesAdapter(response.body()!!.results)
+                        adapter = MoviesAdapter2(response.body()!!.results)
                     }
 
                 }
