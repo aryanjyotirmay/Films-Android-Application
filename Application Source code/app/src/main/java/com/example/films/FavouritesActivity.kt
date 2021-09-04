@@ -16,27 +16,32 @@ class FavouritesActivity : AppCompatActivity() {
         setContentView(R.layout.activity_favourites)
 
 
-        val adapter = FavAdapter(this,this)
-        fav_recycler.apply{
+        val adapter = FavAdapter(this, this)
+        fav_recycler.apply {
             this.adapter = adapter
-            layoutManager = LinearLayoutManager(this@FavouritesActivity)}
+            layoutManager = LinearLayoutManager(this@FavouritesActivity)
+        }
 
         no_fav.visibility = View.VISIBLE
-        viewModel = ViewModelProvider(this,ViewModelProvider.AndroidViewModelFactory.getInstance(application)).get(MoviesViewModel::class.java)
+        viewModel = ViewModelProvider(
+            this,
+            ViewModelProvider.AndroidViewModelFactory.getInstance(application)
+        ).get(MoviesViewModel::class.java)
 
-        viewModel.allMovies.observe(this, Observer {list -> list?.let {
-            if (list.count() != 0) {
-                fav_recycler.visibility = View.VISIBLE
-                fav_header.visibility = View.VISIBLE
-                no_fav.visibility = View.GONE
-                adapter.updateList(it)
+        viewModel.allMovies.observe(this, Observer { list ->
+            list?.let {
+                if (list.count() != 0) {
+                    fav_recycler.visibility = View.VISIBLE
+                    fav_header.visibility = View.VISIBLE
+                    no_fav.visibility = View.GONE
+                    adapter.updateList(it)
+                }
+                if (list.count() == 0) {
+                    no_fav.visibility = View.VISIBLE
+                    fav_recycler.visibility = View.GONE
+                    fav_header.visibility = View.GONE
+                }
             }
-            if (list.count()==0){
-                no_fav.visibility = View.VISIBLE
-                fav_recycler.visibility = View.GONE
-                fav_header.visibility = View.GONE
-            }
-        }
 
         })
 
@@ -44,7 +49,7 @@ class FavouritesActivity : AppCompatActivity() {
 
     fun onItemClicked(movie: FavouritesTable) {
         viewModel.deleteMovie(movie)
-        Toast.makeText(this,"Removed From Favourites",Toast.LENGTH_SHORT).show()
+        Toast.makeText(this, "Removed From Favourites", Toast.LENGTH_SHORT).show()
     }
 
 }

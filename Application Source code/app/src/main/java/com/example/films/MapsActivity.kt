@@ -22,8 +22,8 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
     private lateinit var mMap: GoogleMap
     private lateinit var binding: ActivityMapsBinding
     private lateinit var fusedLocationProviderClient: FusedLocationProviderClient
-    private  var lat: Double = 0.0
-    private  var lng: Double = 0.0
+    private var lat: Double = 0.0
+    private var lng: Double = 0.0
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -36,12 +36,15 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
                 if (checkSelfPermission(Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
                     fusedLocationProviderClient.lastLocation.addOnSuccessListener { location ->
-                        if (location!=null) {
-                         lat = location.latitude
-                         lng = location.longitude
+                        if (location != null) {
+                            lat = location.latitude
+                            lng = location.longitude
                         } else {
-                            Toast.makeText(this,"Location: Off",Toast.LENGTH_SHORT).show()
-                            requestPermissions(Array(1) { Manifest.permission.ACCESS_FINE_LOCATION }, 111)
+                            Toast.makeText(this, "Location: Off", Toast.LENGTH_SHORT).show()
+                            requestPermissions(
+                                Array(1) { Manifest.permission.ACCESS_FINE_LOCATION },
+                                111
+                            )
                         }
                     }
 
@@ -63,7 +66,7 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
         // Add a marker in Sydney and move the camera
         val sydney = LatLng(lat, lng)
         mMap.addMarker(MarkerOptions().position(sydney))
-        mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(sydney, 18F),2000,null)
+        mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(sydney, 18F), 2000, null)
     }
 
 }
