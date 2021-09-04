@@ -39,6 +39,7 @@ android {
 }
 
 dependencies {
+    implementation 'com.vmadalin:easypermissions-ktx:1.0.0'
     implementation 'com.ms-square:expandableTextView:0.1.4'
     implementation 'com.github.beksomega:loopinglayout:0.4.1'
     implementation 'androidx.recyclerview:recyclerview:1.2.1'
