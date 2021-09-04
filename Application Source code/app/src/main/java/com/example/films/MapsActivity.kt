@@ -32,31 +32,38 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
         setContentView(binding.root)
         fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this)
 
+        fetchAndMark()
+
         binding.getLocation.setOnClickListener {
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-                if (checkSelfPermission(Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
-                    fusedLocationProviderClient.lastLocation.addOnSuccessListener { location ->
-                        if (location != null) {
-                            lat = location.latitude
-                            lng = location.longitude
-                        } else {
-                            Toast.makeText(this, "Location: Off", Toast.LENGTH_SHORT).show()
-                            requestPermissions(
-                                Array(1) { Manifest.permission.ACCESS_FINE_LOCATION },
-                                111
-                            )
-                        }
-                    }
-
-                } else {
-                    requestPermissions(Array(1) { Manifest.permission.ACCESS_FINE_LOCATION }, 111)
-
-                }
-            }
-            val mapFragment = supportFragmentManager
-                .findFragmentById(R.id.map) as SupportMapFragment
-            mapFragment.getMapAsync(this)
+            fetchAndMark()
         }
+
+    }
+
+    private fun fetchAndMark() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            if (checkSelfPermission(Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
+                fusedLocationProviderClient.lastLocation.addOnSuccessListener { location ->
+                    if (location != null) {
+                        lat = location.latitude
+                        lng = location.longitude
+                    } else {
+                        Toast.makeText(this, "Location: Off", Toast.LENGTH_SHORT).show()
+                        requestPermissions(
+                            Array(1) { Manifest.permission.ACCESS_FINE_LOCATION },
+                            111
+                        )
+                    }
+                }
+
+            } else {
+                requestPermissions(Array(1) { Manifest.permission.ACCESS_FINE_LOCATION }, 111)
+
+            }
+        }
+        val mapFragment = supportFragmentManager
+            .findFragmentById(R.id.map) as SupportMapFragment
+        mapFragment.getMapAsync(this)
     }
 
 
