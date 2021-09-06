@@ -1,6 +1,7 @@
 package com.example.films
 
 import android.annotation.SuppressLint
+import android.content.ClipData
 import android.content.Intent
 import android.graphics.drawable.Drawable
 import android.os.Bundle
@@ -9,6 +10,7 @@ import android.view.MotionEvent
 import android.view.View
 import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.view.get
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.DataSource
@@ -52,9 +54,6 @@ class ActorActivity : AppCompatActivity() {
 //        val barz: ProgressBar = findViewById(R.id.progressBarA)
 //        val buttonHome: ImageButton = findViewById(R.id.button2)
 //        val detailA: TextView = findViewById(R.id.actor_overview)
-
-        binding.button2.setOnClickListener { startActivity(Intent(this, MainActivity::class.java)) }
-
 
         binding.actorOverview.movementMethod = ScrollingMovementMethod()
         binding.actorOverview.setOnTouchListener { v, event ->
@@ -150,17 +149,24 @@ class ActorActivity : AppCompatActivity() {
                 Toast.makeText(this@ActorActivity, "${t.message}", Toast.LENGTH_SHORT).show()
             }
         })
+     //   val reviewItem=binding.bottomNavActor[R.id.review_item]
+        binding.bottomNavActor.setOnNavigationItemSelectedListener {
+            when (it.itemId) {
+                R.id.home_item -> startActivity(Intent(this, MainActivity::class.java))
 
-        binding.buttonShare.setOnClickListener {
-            posActor?.let { it1 ->
-                nameShare?.let { it2 ->
-                    Navigator.shareButtonA(
-                        this,
-                        it1,
-                        it2
-                    )
+                R.id.share_item ->             posActor?.let { it1 ->
+                    nameShare?.let { it2 ->
+                        Navigator.shareButtonA(
+                            this,
+                            it1,
+                            it2
+                        )
+                    }
                 }
+
             }
+
+            return@setOnNavigationItemSelectedListener true
         }
     }
 }

@@ -11,6 +11,7 @@ import android.view.MotionEvent
 import android.view.View
 import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.view.get
 import androidx.core.view.isVisible
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -190,6 +191,7 @@ class DetailsActivity : AppCompatActivity() {
                 }
             }
         }
+
 
         dBinding.bottomNav.setOnNavigationItemSelectedListener {
             when (it.itemId) {
