@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
     android:background="@drawable/grad">
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -101,7 +101,7 @@
 
         <androidx.viewpager2.widget.ViewPager2
             android:id="@+id/view_pager"
-            android:layout_width="430dp"
+            android:layout_width="match_parent"
             android:layout_height="238dp"
             android:layout_marginBottom="2dp"
             android:background="@drawable/grad"
@@ -109,6 +109,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
+
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

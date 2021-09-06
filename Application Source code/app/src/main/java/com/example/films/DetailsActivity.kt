@@ -41,8 +41,6 @@ class DetailsActivity : AppCompatActivity() {
         dBinding = ActivityDetailsBinding.inflate(layoutInflater)
         setContentView(dBinding.root)
 
-        val buttonMain: ImageButton = findViewById(R.id.button2)
-        buttonMain.setOnClickListener { startActivity(Intent(this, MainActivity::class.java)) }
         id = intent?.extras?.getInt("id").toString()
         val bar: ProgressBar = findViewById(R.id.progressBar)
         val titleMov: TextView = findViewById(R.id.title_2)
@@ -179,9 +177,6 @@ class DetailsActivity : AppCompatActivity() {
                 Toast.makeText(this@DetailsActivity, "${t.message}", Toast.LENGTH_SHORT).show()
             }
         })
-        dBinding.buttonShare.setOnClickListener {
-            name?.let { it1 -> posPath?.let { it2 -> Navigator.shareButton(this, it1, it2) } }
-        }
 
         dBinding.button5.setOnClickListener {
             name?.let { it1 ->
@@ -195,8 +190,26 @@ class DetailsActivity : AppCompatActivity() {
                 }
             }
         }
-        dBinding.button3.setOnClickListener {
-            name?.let { it1 -> Navigator.seeReviews(this, id, it1) }
+
+        dBinding.bottomNav.setOnNavigationItemSelectedListener {
+            when (it.itemId) {
+                R.id.review_item -> name?.let { it1 -> Navigator.seeReviews(this, id, it1) }
+
+                R.id.home_item -> startActivity(Intent(this, MainActivity::class.java))
+
+                R.id.share_item -> name?.let { it1 ->
+                    posPath?.let { it2 ->
+                        Navigator.shareButton(
+                            this,
+                            it1,
+                            it2
+                        )
+                    }
+                }
+
+            }
+
+            return@setOnNavigationItemSelectedListener true
         }
 
     }

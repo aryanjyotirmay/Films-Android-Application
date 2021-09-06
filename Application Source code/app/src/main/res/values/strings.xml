@@ -23,9 +23,11 @@
     <string name="cast">Cast:</string>
     <string name="voice_search">Voice Search</string>
     <string name="favourites">Favourites</string>
-    <string name="search_movies">search_movies</string>
+    <string name="search_movies">Search Movies</string>
     <string name="delete">Delete</string>
     <string name="no_favourites_added">No Favourites Added</string>
     <string name="title_activity_maps">Theaters Near You</string>
     <string name="find_theaters">Find Theaters</string>
+    <string name="reviews">Reviews</string>
+    <string name="home">Home</string>
 </resources>

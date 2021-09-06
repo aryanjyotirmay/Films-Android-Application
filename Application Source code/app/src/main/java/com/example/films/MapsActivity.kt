@@ -1,12 +1,16 @@
 package com.example.films
 
 import android.Manifest
+import android.annotation.SuppressLint
 import android.content.pm.PackageManager
+import android.os.AsyncTask
 import android.os.Build
 import android.os.Bundle
 import android.util.Log
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.app.ActivityCompat
+import androidx.core.content.res.ResourcesCompat
 import com.example.films.databinding.ActivityMapsBinding
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationServices
@@ -32,14 +36,14 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
         setContentView(binding.root)
         fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this)
 
-        fetchAndMark()
+            fetchAndMark()
 
         binding.getLocation.setOnClickListener {
             fetchAndMark()
         }
 
         binding.getTheaters.setOnClickListener {
-            Toast.makeText(this,"Feature yet to be implemented",Toast.LENGTH_SHORT).show()
+            Toast.makeText(this,"Feature Under developement",Toast.LENGTH_SHORT).show()
         }
 
     }
@@ -53,16 +57,11 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
                         lng = location.longitude
                     } else {
                         Toast.makeText(this, "Location: Off", Toast.LENGTH_SHORT).show()
-                        requestPermissions(
-                            Array(1) { Manifest.permission.ACCESS_FINE_LOCATION },
-                            111
-                        )
                     }
                 }
 
             } else {
                 requestPermissions(Array(1) { Manifest.permission.ACCESS_FINE_LOCATION }, 111)
-
             }
         }
         val mapFragment = supportFragmentManager
@@ -71,13 +70,31 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
     }
 
 
+    @SuppressLint("MissingPermission")
     override fun onMapReady(googleMap: GoogleMap) {
         mMap = googleMap
-
         // Add a marker in Sydney and move the camera
         val sydney = LatLng(lat, lng)
-        mMap.addMarker(MarkerOptions().position(sydney))
+
+        mMap.isMyLocationEnabled = true
+        mMap.uiSettings.isMyLocationButtonEnabled = false
+        //mMap.addMarker(MarkerOptions().position(sydney))
         mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(sydney, 18F), 2000, null)
+    }
+
+    override fun onRequestPermissionsResult(
+        requestCode: Int,
+        permissions: Array<out String>,
+        grantResults: IntArray
+    ) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
+        if (requestCode == 111) {
+            if (grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                fetchAndMark()
+            }
+        } else{
+            ActivityCompat.requestPermissions(this,Array(1){Manifest.permission.ACCESS_FINE_LOCATION},111)
+        }
     }
 
 }
