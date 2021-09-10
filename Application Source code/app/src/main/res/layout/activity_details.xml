@@ -1,10 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
+
+
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+<androidx.constraintlayout.widget.ConstraintLayout
     android:layout_height="match_parent"
     android:layout_width="match_parent"
-    android:background="@drawable/grad3"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    android:background="@drawable/grad3">
 
     <ScrollView
         android:layout_width="match_parent"
@@ -21,7 +25,7 @@
 
             <ImageView
                 android:id="@+id/imageView"
-                android:layout_width="432dp"
+                android:layout_width="match_parent"
                 android:layout_height="878dp"
                 android:background="@drawable/grad3"
                 android:importantForAccessibility="no"
@@ -48,7 +52,9 @@
                 android:layout_width="187dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="24dp"
+                android:ellipsize="end"
                 android:gravity="start"
+                android:maxLines="4"
                 android:textColor="#FFFFFF"
                 android:textSize="25dp"
                 android:textStyle="bold|italic"
@@ -114,43 +120,38 @@
 
             <Button
                 android:id="@+id/button5"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
+                android:layout_marginStart="10dp"
                 android:layout_marginEnd="10dp"
-                android:layout_marginBottom="8dp"
                 android:backgroundTint="#50000000"
                 android:text="@string/browse_similar"
                 android:textAllCaps="false"
                 android:textSize="14dp"
+                app:layout_constraintBottom_toTopOf="@id/textView6"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/overview_2" />
+
+            <ToggleButton
+                android:id="@+id/toggle_fav"
+                style="@style/textBack"
+                android:layout_width="wrap_content"
+                android:layout_height="32dp"
+                android:layout_marginTop="8dp"
+                android:drawableLeft="@drawable/selectstar"
+                android:paddingStart="4dp"
+                android:paddingEnd="4dp"
+                android:textAllCaps="false"
+                android:textOff="@string/add_to_favorites"
+                android:textOn="@string/added"
+                android:textStyle="italic"
                 app:layout_constraintBottom_toTopOf="@+id/overview_2"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/textView4" />
-
-
-            <Button
-                android:id="@+id/btn_fav"
-                android:layout_width="45dp"
-                android:layout_height="50dp"
-                android:layout_marginStart="40dp"
-                android:backgroundTint="#50000000"
-                android:drawableTop="@drawable/ic_baseline_star_outline_24"
-                app:layout_constraintEnd_toStartOf="@+id/button5"
-                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintHorizontal_bias="1.0"
                 app:layout_constraintStart_toEndOf="@+id/poster_2"
-                app:layout_constraintTop_toTopOf="@+id/button5" />
-
-            <Button
-                android:id="@+id/btn_fav_remove"
-                android:layout_width="45dp"
-                android:layout_height="50dp"
-                android:layout_marginStart="40dp"
-                android:backgroundTint="#50000000"
-                android:drawableTop="@drawable/ic_baseline_star_24"
-                app:layout_constraintEnd_toStartOf="@+id/button5"
-                app:layout_constraintHorizontal_bias="0.5"
-                app:layout_constraintStart_toEndOf="@+id/poster_2"
-                app:layout_constraintTop_toTopOf="@+id/button5" />
+                app:layout_constraintTop_toBottomOf="@+id/textView4"
+                app:layout_constraintVertical_bias="0.0" />
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/cast_recycler"
@@ -163,7 +164,7 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/overview_2"
+                app:layout_constraintTop_toBottomOf="@+id/button5"
                 app:layout_constraintVertical_bias="0.03" />
 
             <TextView
@@ -172,21 +173,22 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="10dp"
-                android:layout_marginTop="50dp"
+                android:layout_marginTop="16dp"
                 android:text="@string/cast"
                 android:textSize="20dp"
                 app:layout_constraintBottom_toTopOf="@+id/cast_recycler"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/overview_2"
-                app:layout_constraintVertical_bias="1.0" />
+                app:layout_constraintTop_toBottomOf="@id/button5" />
 
             <TextView
                 android:id="@+id/quote_movie"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
                 android:layout_marginTop="8dp"
+                android:layout_marginEnd="10dp"
                 android:background="#50000000"
                 android:gravity="center"
                 android:padding="4dp"
@@ -216,3 +218,5 @@
         app:layout_constraintStart_toStartOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
+<!--</Layout>-->
+</layout>

@@ -2,7 +2,9 @@ package com.example.films
 
 import android.annotation.SuppressLint
 import android.content.ContentValues.TAG
+import android.content.Context
 import android.content.Intent
+import android.content.SharedPreferences
 import android.graphics.drawable.Drawable
 import android.os.Bundle
 import android.text.method.ScrollingMovementMethod
@@ -13,6 +15,8 @@ import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.get
 import androidx.core.view.isVisible
+import androidx.databinding.DataBindingUtil
+import androidx.databinding.ViewDataBinding
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.bumptech.glide.Glide
@@ -35,24 +39,22 @@ class DetailsActivity : AppCompatActivity() {
     private var posPath: String? = null
     private var name: String? = null
     private lateinit var dBinding: ActivityDetailsBinding
+    private lateinit var isOnelinerEnabled: String
+    private val movieFavs = "movieFavourites"
 
     @SuppressLint("ClickableViewAccessibility")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        dBinding = ActivityDetailsBinding.inflate(layoutInflater)
-        setContentView(dBinding.root)
+
+        dBinding = DataBindingUtil.setContentView(this,R.layout.activity_details)
+
+        val sharedPreferences: SharedPreferences = this.getSharedPreferences(movieFavs,Context.MODE_PRIVATE)
+
 
         id = intent?.extras?.getInt("id").toString()
-        val bar: ProgressBar = findViewById(R.id.progressBar)
-        val titleMov: TextView = findViewById(R.id.title_2)
-        val overviewMov: TextView = findViewById(R.id.overview_2)
-        val relDate: TextView = findViewById(R.id.textView4)
-        val imgdisp: ImageView = findViewById(R.id.poster_2)
-        val imgbg: ImageView = findViewById(R.id.imageView)
-        val stars: TextView = findViewById(R.id.rating_2)
 
-        overviewMov.movementMethod = ScrollingMovementMethod()
-        overviewMov.setOnTouchListener { v, event ->
+        dBinding.overview2.movementMethod = ScrollingMovementMethod()
+        dBinding.overview2.setOnTouchListener { v, event ->
             when (event.action) {
                 MotionEvent.ACTION_DOWN ->
                     v.parent.requestDisallowInterceptTouchEvent(true)
@@ -72,10 +74,9 @@ class DetailsActivity : AppCompatActivity() {
         }
 
 
-        dBinding.btnFavRemove.isVisible = false
-        dBinding.btnFav.isVisible = true
 
-        bar.visibility = View.VISIBLE
+
+        dBinding.progressBar.visibility = View.VISIBLE
         val req = ServiceBuilder.buildService(TmdbEndpoints::class.java)
         val called = req.getDetails(id.toInt(), Constant.apiKey)
         val castCall = req.getCast(id.toInt(), Constant.apiKey)
@@ -87,21 +88,22 @@ class DetailsActivity : AppCompatActivity() {
                     val movieDet = response.body()!!
                     Log.d(TAG, "onResponse: received response")
                     if (movieDet.overview.count() == 0) {
-                        overviewMov.text = "No Overview"
+                        dBinding.overview2.text = "No Overview"
                     } else {
-                        overviewMov.text = movieDet.overview
+                        dBinding.overview2.text = movieDet.overview
                     }
-                    relDate.text = "Date:" + movieDet.release_date
-                    titleMov.text = movieDet.title
+                    dBinding.textView4.text = "Date:" + movieDet.release_date
+                    dBinding.title2.text = movieDet.title
                     name = movieDet.title
-                    stars.text = "★: ${movieDet.vote_average}" + " (${movieDet.vote_count})"
+                    dBinding.rating2.text = "★: ${movieDet.vote_average}" + " (${movieDet.vote_count})"
 
-                    quote_movie.text = "'${movieDet.tagline}'"
+                    dBinding.quoteMovie.isVisible = movieDet.tagline.isNotEmpty()
+                    dBinding.quoteMovie.text = "'${movieDet.tagline}'"
                     themeImage = response.body()?.backdrop_path
                     posPath = movieDet.poster_path.toString()
 
                     Glide.with(this@DetailsActivity)
-                        .load("https://image.tmdb.org/t/p/w500${posPath}").into(imgdisp)
+                        .load("https://image.tmdb.org/t/p/w500${posPath}").into(dBinding.poster2)
                     Glide.with(this@DetailsActivity)
                         .load("https://image.tmdb.org/t/p/w500${response.body()?.backdrop_path}")
                         .listener(object :
@@ -112,7 +114,7 @@ class DetailsActivity : AppCompatActivity() {
                                 target: Target<Drawable>?,
                                 isFirstResource: Boolean
                             ): Boolean {
-                                bar.visibility = View.GONE
+                                dBinding.progressBar.visibility = View.GONE
                                 return false
                             }
 
@@ -123,29 +125,33 @@ class DetailsActivity : AppCompatActivity() {
                                 dataSource: DataSource?,
                                 isFirstResource: Boolean
                             ): Boolean {
-                                bar.visibility = View.GONE
+                                dBinding.progressBar.visibility = View.GONE
                                 return false
                             }
-                        }).into(imgbg)
+                        }).into(dBinding.imageView)
 
                     val mov = movieDet.id.toString()
 
+                    val editor: SharedPreferences.Editor = sharedPreferences.edit()
+
+                    val sharedValue = sharedPreferences.getString(movieDet.title,"notAdded")
+
+                    dBinding.toggleFav.isChecked = sharedValue.equals(mov)
 
 
-                    dBinding.btnFav.setOnClickListener {
-                        if (mov.isNotEmpty()) {
+                    dBinding.toggleFav.setOnClickListener {
+                        if (dBinding.toggleFav.isChecked) {
                             viewModel.insertMovie(FavouritesTable(mov))
-                            dBinding.btnFav.isVisible = false
-                            dBinding.btnFavRemove.isVisible = true
+                            editor.putString(movieDet.title,mov)
+                            editor.apply()
+                            editor.commit()
+                        } else {
+                            editor.remove(movieDet.title)
+                            editor.apply()
+                            editor.commit()
+                            viewModel.deleteIdMovie(mov.toInt())
                         }
                     }
-                    dBinding.btnFavRemove.setOnClickListener {
-                        viewModel.deleteIdMovie(mov.toInt())
-                        dBinding.btnFav.isVisible = true
-                        dBinding.btnFavRemove.isVisible = false
-
-                    }
-
                 }
 
             }

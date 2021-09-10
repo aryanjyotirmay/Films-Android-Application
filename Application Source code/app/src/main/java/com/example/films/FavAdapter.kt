@@ -2,6 +2,7 @@ package com.example.films
 
 import android.content.Context
 import android.content.Intent
+import android.content.SharedPreferences
 import android.graphics.drawable.Drawable
 import android.view.LayoutInflater
 import android.view.View
@@ -18,10 +19,12 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-class FavAdapter(private val context: Context, private val listener: FavouritesActivity) :
+class FavAdapter(private val context: Context,  val listener: FavouritesActivity) :
     RecyclerView.Adapter<FavAdapter.FavViewHolder>() {
 
     private val allMovies = ArrayList<FavouritesTable>()
+    val sharedPreferences: SharedPreferences = context.getSharedPreferences("movieFavourites",Context.MODE_PRIVATE)
+    val editor: SharedPreferences.Editor = sharedPreferences.edit()
 
     inner class FavViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val poster: ImageView = itemView.findViewById(R.id.fav_pos)
@@ -35,13 +38,9 @@ class FavAdapter(private val context: Context, private val listener: FavouritesA
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): FavViewHolder {
 
-        val viewHolder = FavViewHolder(
+        return FavViewHolder(
             LayoutInflater.from(context).inflate(R.layout.item_favourites, parent, false)
         )
-        viewHolder.deleteButton.setOnClickListener {
-            listener.onItemClicked(allMovies[viewHolder.absoluteAdapterPosition])
-        }
-        return viewHolder
     }
 
     override fun onBindViewHolder(holder: FavViewHolder, position: Int) {
@@ -51,6 +50,8 @@ class FavAdapter(private val context: Context, private val listener: FavouritesA
         val req = ServiceBuilder.buildService(TmdbEndpoints::class.java)
         val called = req.getDetails(id.toInt(), Constant.apiKey)
         holder.proBar.visibility = View.VISIBLE
+
+
         called.enqueue(object : Callback<MovieDetails> {
             override fun onResponse(call: Call<MovieDetails>, response: Response<MovieDetails>) {
                 if (response.isSuccessful) {
@@ -62,6 +63,12 @@ class FavAdapter(private val context: Context, private val listener: FavouritesA
                     }
 
                     holder.favTitle.text = movieDet.title
+                    holder.deleteButton.setOnClickListener {
+                        listener.onItemClicked(allMovies[holder.absoluteAdapterPosition])
+                        editor.remove(movieDet.title)
+                        editor.apply()
+                        editor.commit()
+                    }
                     holder.favRat.text = "⭐ "+movieDet.vote_average.toString()
                     holder.reviewButton.setOnClickListener {
                         Navigator.seeReviews(context,movieDet.id.toString(),movieDet.title)
@@ -92,6 +99,7 @@ class FavAdapter(private val context: Context, private val listener: FavouritesA
                         .into(holder.poster)
                 }
             }
+
 
             override fun onFailure(call: Call<MovieDetails>, t: Throwable) {
                 Toast.makeText(context, "${t.message}", Toast.LENGTH_SHORT).show()
