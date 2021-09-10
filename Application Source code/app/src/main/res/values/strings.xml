@@ -12,7 +12,7 @@
     <string name="upcoming_movies">Upcoming Movies</string>
     <string name="filmypedia">Filmypedia</string>
     <string name="top_rated">Top Rated</string>
-    <string name="browse_similar">Browse Similar Movies</string>
+    <string name="browse_similar">View Similar</string>
     <string name="search_movie">Search Movie</string>
     <string name="search">Search</string>
     <string name="find_movies">Find Movies</string>
@@ -32,4 +32,5 @@
     <string name="home">Home</string>
     <string name="added">Added</string>
     <string name="add_to_favorites">Add to Favorites</string>
+    <string name="youtube">Youtube</string>
 </resources>

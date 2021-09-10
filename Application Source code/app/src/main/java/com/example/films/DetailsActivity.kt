@@ -185,7 +185,8 @@ class DetailsActivity : AppCompatActivity() {
             }
         })
 
-        dBinding.button5.setOnClickListener {
+        dBinding.buttonSim.setOnClickListener {
+
             name?.let { it1 ->
                 themeImage?.let { it2 ->
                     Navigator.similarMovies(
@@ -196,6 +197,12 @@ class DetailsActivity : AppCompatActivity() {
                     )
                 }
             }
+        }
+
+        dBinding.youtubeButton.setOnClickListener {
+            val intentYT = Intent(this, MainActivity2::class.java)
+            intentYT.putExtra("movie_name", name)
+            startActivity(intentYT)
         }
 
 

@@ -118,20 +118,66 @@
                 app:layout_constraintStart_toStartOf="@+id/overview_2"
                 app:layout_constraintTop_toTopOf="@+id/overview_2" />
 
-            <Button
-                android:id="@+id/button5"
+            <LinearLayout
+                android:id="@+id/layout_buttons"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="10dp"
                 android:layout_marginEnd="10dp"
-                android:backgroundTint="#50000000"
-                android:text="@string/browse_similar"
-                android:textAllCaps="false"
-                android:textSize="14dp"
+                android:layout_marginTop="4dp"
                 app:layout_constraintBottom_toTopOf="@id/textView6"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/overview_2" />
+                app:layout_constraintTop_toBottomOf="@+id/overview_2">
+
+                <LinearLayout
+                    android:id="@+id/button_sim"
+                    android:background="@drawable/grad2"
+                    android:padding="4dp"
+                    android:layout_marginEnd="4dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1">
+                    <ImageView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:src="@drawable/ic_baseline_theaters_24"
+                        android:layout_weight="1.5"/>
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:text="@string/browse_similar"
+                        android:textColor="@color/white"
+                        android:textSize="16dp"
+                        android:gravity="center_vertical"/>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/youtube_button"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@drawable/grad2"
+                    android:padding="4dp"
+                    android:layout_marginStart="4dp"
+                    android:layout_weight="1">
+                    <ImageView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:src="@drawable/ic_baseline_play_arrow_24"
+                        android:layout_weight="1.5"/>
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:text="@string/youtube"
+                        android:textColor="@color/white"
+                        android:textSize="16dp"
+                        android:gravity="center_vertical"/>
+
+                </LinearLayout>
+            </LinearLayout>
 
             <ToggleButton
                 android:id="@+id/toggle_fav"
@@ -164,7 +210,7 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/button5"
+                app:layout_constraintTop_toBottomOf="@+id/layout_buttons"
                 app:layout_constraintVertical_bias="0.03" />
 
             <TextView
@@ -180,7 +226,7 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/button5" />
+                app:layout_constraintTop_toBottomOf="@id/layout_buttons" />
 
             <TextView
                 android:id="@+id/quote_movie"
