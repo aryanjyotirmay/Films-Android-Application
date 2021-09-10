@@ -78,7 +78,6 @@ class MoviesViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
                 Toast.makeText(itemView.context, "No Data Available :(", Toast.LENGTH_SHORT).show()
             }
             if (movie.poster_path != null) {
-                Toast.makeText(itemView.context, movie.title, Toast.LENGTH_SHORT).show()
                 Log.d("TAG", "bind:Chal gaya ")
                 val intent = Intent(itemView.context, DetailsActivity::class.java)
                 intent.putExtra("imgapp", movie.poster_path)

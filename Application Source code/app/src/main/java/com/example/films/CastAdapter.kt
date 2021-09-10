@@ -86,8 +86,6 @@ class CastHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         }
 
         layoutRefer.setOnClickListener {
-            Toast.makeText(itemView.context, cast.name, Toast.LENGTH_SHORT).show()
-
             val castIntent = Intent(itemView.context, ActorActivity::class.java)
             castIntent.putExtra("ActorId", cast.id)
             itemView.context.startActivity(castIntent)

@@ -74,12 +74,12 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
     override fun onMapReady(googleMap: GoogleMap) {
         mMap = googleMap
         // Add a marker in Sydney and move the camera
-        val sydney = LatLng(lat, lng)
+        val currentPosition = LatLng(lat, lng)
 
         mMap.isMyLocationEnabled = true
         mMap.uiSettings.isMyLocationButtonEnabled = false
-        //mMap.addMarker(MarkerOptions().position(sydney))
-        mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(sydney, 18F), 2000, null)
+        //mMap.addMarker(MarkerOptions().position(currentPosition))
+        mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(currentPosition, 18F), 2000, null)
     }
 
     override fun onRequestPermissionsResult(
