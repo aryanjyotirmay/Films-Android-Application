@@ -4,16 +4,18 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
+    <item android:id="@+id/home_item"
+        android:icon="@drawable/ic_baseline_arrow_back_24"
+        app:showAsAction="always"
+        android:title="@string/go_back" />
+
     <item android:id="@+id/review_item"
         android:icon="@drawable/ic_baseline_rate_review_24"
         app:showAsAction="ifRoom"
         android:title="@string/reviews"
         app:actionViewClass="androidx.appcompat.widget.SearchView" />
 
-    <item android:id="@+id/home_item"
-        android:icon="@drawable/ic_baseline_home_24"
-        app:showAsAction="always"
-        android:title="@string/home" />
+
 
     <item android:id="@+id/share_item"
         android:icon="@drawable/ic_baseline_share_24"

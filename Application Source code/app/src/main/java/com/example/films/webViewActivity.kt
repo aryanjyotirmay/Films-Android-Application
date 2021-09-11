@@ -8,24 +8,22 @@ import android.webkit.WebView
 import android.webkit.WebViewClient
 import android.widget.ImageButton
 
-class MainActivity2 : AppCompatActivity() {
+class WebViewActivity : AppCompatActivity() {
     private lateinit var webView: WebView
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main2)
+        setContentView(R.layout.activity_web_view)
 
-        val home = findViewById<ImageButton>(R.id.home_button)
+        val home = findViewById<ImageButton>(R.id.home_button_news)
         home.setOnClickListener {
             super.onBackPressed()
         }
 
-        webView = findViewById(R.id.web_view_yt)
+        webView = findViewById(R.id.web_view_news)
 
-        val searchMovieTerm = intent?.extras?.getString("movie_url").toString()
+        val newsArticle = intent?.extras?.getString("urlToArticle").toString()
 
-        Navigator.loadWebViewNews(searchMovieTerm,webView)
-
-
+        Navigator.loadWebViewNews(newsArticle,webView)
 
     }
 

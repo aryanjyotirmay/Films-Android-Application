@@ -26,7 +26,7 @@
             <ImageView
                 android:id="@+id/imageView"
                 android:layout_width="match_parent"
-                android:layout_height="878dp"
+                android:layout_height="1000dp"
                 android:background="@drawable/grad3"
                 android:importantForAccessibility="no"
                 android:scaleType="centerCrop"
@@ -241,13 +241,24 @@
                 android:textColor="@color/white"
                 android:textSize="12dp"
                 android:textStyle="bold|italic"
-                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintBottom_toBottomOf="@id/news_recycler_movie"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/cast_recycler"
                 app:layout_constraintVertical_bias="0.0"
                 tools:text="hello fellas this is a quote from the movie" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/news_recycler_movie"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:layout_marginBottom="72dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/quote_movie" />
         </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>
 

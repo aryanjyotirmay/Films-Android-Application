@@ -4,21 +4,20 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    tools:context=".MainActivity2">
+    tools:context=".WebViewActivity">
 
     <WebView
-        android:id="@+id/web_view_yt"
+        android:id="@+id/web_view_news"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_marginTop="45dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/home_button" />
+        app:layout_constraintTop_toBottomOf="@+id/home_button_news" />
 
     <ImageButton
-        android:id="@+id/home_button"
+        android:id="@+id/home_button_news"
         android:layout_width="match_parent"
         android:layout_height="45dp"
         android:background="@drawable/grad3"

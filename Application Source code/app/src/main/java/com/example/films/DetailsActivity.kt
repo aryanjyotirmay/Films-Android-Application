@@ -80,9 +80,13 @@ class DetailsActivity : AppCompatActivity() {
         val req = ServiceBuilder.buildService(TmdbEndpoints::class.java)
         val called = req.getDetails(id.toInt(), Constant.apiKey)
         val castCall = req.getCast(id.toInt(), Constant.apiKey)
-        called.enqueue(object : Callback<MovieDetails> {
+        val reqNews = NewsBuilder.buildNewsService(TmdbEndpoints::class.java)
 
+
+        called.enqueue(object : Callback<MovieDetails> {
             override fun onResponse(call: Call<MovieDetails>, response: Response<MovieDetails>) {
+
+
                 Log.d(TAG, "onResponse: Working till this point")
                 if (response.isSuccessful) {
                     val movieDet = response.body()!!
@@ -101,6 +105,28 @@ class DetailsActivity : AppCompatActivity() {
                     dBinding.quoteMovie.text = "'${movieDet.tagline}'"
                     themeImage = response.body()?.backdrop_path
                     posPath = movieDet.poster_path.toString()
+
+                    val newsCall = reqNews.getNews(movieDet.title,Constant.apiNewsKey)
+
+                    newsCall.enqueue(object: Callback<NewsHeadlinesData> {
+                        override fun onResponse(
+                            call: Call<NewsHeadlinesData>,
+                            response: Response<NewsHeadlinesData>
+                        ) {
+                            if (response.isSuccessful) {
+                                dBinding.newsRecyclerMovie.apply {
+                                    setHasFixedSize(true)
+                                    layoutManager = LinearLayoutManager(this@DetailsActivity,LinearLayoutManager.HORIZONTAL,false)
+                                    adapter = NewsAdapter(response.body()!!)
+                                }
+                            }
+                        }
+
+                        override fun onFailure(call: Call<NewsHeadlinesData>, t: Throwable) {
+                            Toast.makeText(this@DetailsActivity, "${t.message}", Toast.LENGTH_SHORT).show()
+                        }
+
+                    })
 
                     Glide.with(this@DetailsActivity)
                         .load("https://image.tmdb.org/t/p/w500${posPath}").into(dBinding.poster2)
@@ -129,6 +155,7 @@ class DetailsActivity : AppCompatActivity() {
                                 return false
                             }
                         }).into(dBinding.imageView)
+
 
                     val mov = movieDet.id.toString()
 
@@ -162,6 +189,10 @@ class DetailsActivity : AppCompatActivity() {
 
 
         })
+
+
+
+
 
         castCall.enqueue(object : Callback<CastData> {
             override fun onResponse(call: Call<CastData>, response: Response<CastData>) {
@@ -201,7 +232,7 @@ class DetailsActivity : AppCompatActivity() {
 
         dBinding.youtubeButton.setOnClickListener {
             val intentYT = Intent(this, MainActivity2::class.java)
-            intentYT.putExtra("movie_name", name)
+            intentYT.putExtra("movie_url", "https://www.youtube.com/results?search_query=$name trailer")
             startActivity(intentYT)
         }
 
@@ -210,7 +241,7 @@ class DetailsActivity : AppCompatActivity() {
             when (it.itemId) {
                 R.id.review_item -> name?.let { it1 -> Navigator.seeReviews(this, id, it1) }
 
-                R.id.home_item -> startActivity(Intent(this, MainActivity::class.java))
+                R.id.home_item -> super.onBackPressed()
 
                 R.id.share_item -> name?.let { it1 ->
                     posPath?.let { it2 ->

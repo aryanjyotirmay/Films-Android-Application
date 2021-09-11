@@ -5,6 +5,7 @@ import retrofit2.http.Path
 import retrofit2.http.Query
 
 interface TmdbEndpoints {
+    //tmdb calls
 
     @GET("/3/movie/popular")
     fun getMovies(@Query("api_key") key: String): retrofit2.Call<PopularMovies>
@@ -45,5 +46,12 @@ interface TmdbEndpoints {
         @Query("api_key") key: String
     ): retrofit2.Call<DataActorMovies>
 
+    //newsApi Calls
+
+    @GET("/v2/top-headlines")
+    fun getTopMovieNews(@Query("country") country: String, @Query("category") category: String, @Query("apiKey") key: String): retrofit2.Call<NewsHeadlinesData>
+
+    @GET("/v2/everything")
+    fun getNews(@Query("q") query: String, @Query("apiKey") key: String): retrofit2.Call<NewsHeadlinesData>
 
 }

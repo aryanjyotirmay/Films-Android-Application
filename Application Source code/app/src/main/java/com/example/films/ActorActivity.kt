@@ -12,6 +12,7 @@ import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.get
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.DataSource
 import com.bumptech.glide.load.engine.GlideException
@@ -39,6 +40,8 @@ class ActorActivity : AppCompatActivity() {
         val callActor = req.getActor(idActor.toInt(), Constant.apiKey)
 
         val callActorMovies = req.getMoviesActor(idActor.toInt(), Constant.apiKey)
+
+        val reqActor = NewsBuilder.buildNewsService(TmdbEndpoints::class.java)
 
 
 
@@ -115,6 +118,27 @@ class ActorActivity : AppCompatActivity() {
 
                         ).into(binding.actorImageView)
 
+                    val callActorNews = reqActor.getNews(actorDetail.name,Constant.apiNewsKey)
+
+                    callActorNews.enqueue(object: Callback<NewsHeadlinesData>{
+                        override fun onResponse(
+                            call: Call<NewsHeadlinesData>,
+                            response: Response<NewsHeadlinesData>
+                        ) {
+                            if (response.isSuccessful) {
+                                binding.newsRecyclerActor.apply {
+                                    setHasFixedSize(true)
+                                    layoutManager = LinearLayoutManager(this@ActorActivity,LinearLayoutManager.HORIZONTAL,false)
+                                    adapter = NewsAdapter(response.body()!!)
+                                }
+                            }
+                        }
+
+                        override fun onFailure(call: Call<NewsHeadlinesData>, t: Throwable) {
+                            Toast.makeText(this@ActorActivity, "${t.message}", Toast.LENGTH_SHORT).show()
+                        }
+
+                    })
 
                 }
             }
@@ -152,7 +176,7 @@ class ActorActivity : AppCompatActivity() {
      //   val reviewItem=binding.bottomNavActor[R.id.review_item]
         binding.bottomNavActor.setOnNavigationItemSelectedListener {
             when (it.itemId) {
-                R.id.home_item -> startActivity(Intent(this, MainActivity::class.java))
+                R.id.home_item -> super.onBackPressed()
 
                 R.id.share_item ->             posActor?.let { it1 ->
                     nameShare?.let { it2 ->

@@ -1,7 +1,10 @@
 package com.example.films
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.content.Intent
+import android.webkit.WebView
+import android.webkit.WebViewClient
 import android.widget.Toast
 
 object Navigator {
@@ -63,5 +66,14 @@ object Navigator {
         )
         val choose = Intent.createChooser(sh, "Share this movie")
         context.startActivity(choose)
+    }
+
+    @SuppressLint("SetJavaScriptEnabled")
+    fun loadWebViewNews(url: String, webView: WebView) {
+        webView.webViewClient = WebViewClient()
+        webView.apply {
+            loadUrl(url)
+            settings.javaScriptEnabled = true
+        }
     }
 }

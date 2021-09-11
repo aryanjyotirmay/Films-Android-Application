@@ -32,10 +32,54 @@ class MainActivity : AppCompatActivity() {
 
         val request = ServiceBuilder.buildService(TmdbEndpoints::class.java)
 
+        val newsRequest = NewsBuilder.buildNewsService(TmdbEndpoints::class.java)
+
         val call = request.getMovies(Constant.apiKey)
         val call2 = request.getMoviesTopRated(Constant.apiKey)
         val call3 = request.getMoviesUpcoming(Constant.apiKey)
         val call4 = request.getMovies(Constant.apiKey)
+        val callNews = newsRequest.getTopMovieNews("in","entertainment",Constant.apiNewsKey)
+        val callNewsInt = newsRequest.getTopMovieNews("us","entertainment",Constant.apiNewsKey)
+
+        callNews.enqueue(object: Callback<NewsHeadlinesData> {
+            override fun onResponse(
+                call: Call<NewsHeadlinesData>,
+                response: Response<NewsHeadlinesData>
+            ) {
+                if (response.isSuccessful) {
+                    binding.newsRecycler.apply {
+                        setHasFixedSize(true)
+                        layoutManager = LoopingLayoutManager(this@MainActivity,LinearLayoutManager.HORIZONTAL,false)
+                        adapter = NewsAdapter(response.body()!!)
+                    }
+                }
+            }
+
+            override fun onFailure(call: Call<NewsHeadlinesData>, t: Throwable) {
+                Toast.makeText(this@MainActivity, "${t.message}", Toast.LENGTH_SHORT).show()
+            }
+
+        })
+
+        callNewsInt.enqueue(object: Callback<NewsHeadlinesData> {
+            override fun onResponse(
+                call: Call<NewsHeadlinesData>,
+                response: Response<NewsHeadlinesData>
+            ) {
+                if (response.isSuccessful) {
+                    binding.newsRecyclerInt.apply {
+                        setHasFixedSize(true)
+                        layoutManager = LoopingLayoutManager(this@MainActivity,LinearLayoutManager.HORIZONTAL,false)
+                        adapter = NewsAdapter(response.body()!!)
+                    }
+                }
+            }
+
+            override fun onFailure(call: Call<NewsHeadlinesData>, t: Throwable) {
+                Toast.makeText(this@MainActivity, "${t.message}", Toast.LENGTH_SHORT).show()
+            }
+
+        })
 
         call.enqueue(object : Callback<PopularMovies> {
 
