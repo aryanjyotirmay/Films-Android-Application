@@ -1,8 +1,6 @@
 package com.example.films
 
 import android.annotation.SuppressLint
-import android.content.ClipData
-import android.content.Intent
 import android.graphics.drawable.Drawable
 import android.os.Bundle
 import android.text.method.ScrollingMovementMethod
@@ -10,9 +8,7 @@ import android.view.MotionEvent
 import android.view.View
 import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.get
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.DataSource
 import com.bumptech.glide.load.engine.GlideException
@@ -102,7 +98,6 @@ class ActorActivity : AppCompatActivity() {
                                 binding.progressBarA.visibility = View.GONE
                                 return false
                             }
-
                             override fun onResourceReady(
                                 resource: Drawable?,
                                 model: Any?,
@@ -113,12 +108,9 @@ class ActorActivity : AppCompatActivity() {
                                 binding.progressBarA.visibility = View.GONE
                                 return false
                             }
+                        }).into(binding.actorImageView)
 
-                        }
-
-                        ).into(binding.actorImageView)
-
-                    val callActorNews = reqActor.getNews(actorDetail.name,Constant.apiNewsKey)
+                    val callActorNews = reqActor.getNews(actorDetail.name,Constant.apiNewsKey2)
 
                     callActorNews.enqueue(object: Callback<NewsHeadlinesData>{
                         override fun onResponse(
@@ -154,7 +146,6 @@ class ActorActivity : AppCompatActivity() {
                 response: Response<DataActorMovies>
             ) {
                 if (response.isSuccessful) {
-
                     actor_recycler.apply {
                         setHasFixedSize(true)
                         layoutManager = LinearLayoutManager(
@@ -164,9 +155,7 @@ class ActorActivity : AppCompatActivity() {
                         )
                         adapter = ActorMoviesAdapter(response.body()!!.cast)
                     }
-
                 }
-
             }
 
             override fun onFailure(call: Call<DataActorMovies>, t: Throwable) {
@@ -177,7 +166,6 @@ class ActorActivity : AppCompatActivity() {
         binding.bottomNavActor.setOnNavigationItemSelectedListener {
             when (it.itemId) {
                 R.id.home_item -> super.onBackPressed()
-
                 R.id.share_item ->             posActor?.let { it1 ->
                     nameShare?.let { it2 ->
                         Navigator.shareButtonA(
@@ -189,7 +177,6 @@ class ActorActivity : AppCompatActivity() {
                 }
 
             }
-
             return@setOnNavigationItemSelectedListener true
         }
     }

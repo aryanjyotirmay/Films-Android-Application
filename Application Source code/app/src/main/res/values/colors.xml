@@ -9,4 +9,6 @@
     <color name="white">#FFFFFFFF</color>
     <color name="bluish">#003B73</color>
     <color name="mustard">#ffbf00</color>
+    <color name="brownish">#003B73</color>
+    <color name="brownishLight">#99003B73</color>
 </resources>

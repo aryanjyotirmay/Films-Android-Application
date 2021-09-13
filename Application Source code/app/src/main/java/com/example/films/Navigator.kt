@@ -68,6 +68,17 @@ object Navigator {
         context.startActivity(choose)
     }
 
+    fun shareButtonArticle(context: Context, url: String) {
+        val ar = Intent(Intent.ACTION_SEND)
+        ar.type = "text/plain"
+        ar.putExtra(
+            Intent.EXTRA_TEXT,
+            url
+        )
+        val articleChooser = Intent.createChooser(ar, "Share this article")
+        context.startActivity(articleChooser)
+    }
+
     @SuppressLint("SetJavaScriptEnabled")
     fun loadWebViewNews(url: String, webView: WebView) {
         webView.webViewClient = WebViewClient()

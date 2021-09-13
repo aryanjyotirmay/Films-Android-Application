@@ -35,4 +35,6 @@
     <string name="youtube">Youtube</string>
     <string name="trending">Trending</string>
     <string name="hollywood">Hollywood</string>
+    <string name="change_theme">Change Theme</string>
+    <string name="theaters_nearby">Theaters Nearby</string>
 </resources>

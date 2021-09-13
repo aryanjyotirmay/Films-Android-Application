@@ -21,6 +21,11 @@
     <item android:id="@+id/nearby_movie"
         android:icon="@drawable/ic_baseline_map_24"
         app:showAsAction="ifRoom"
-        android:title="Theaters Nearby"/>
+        android:title="@string/theaters_nearby"/>
+
+    <item android:id="@+id/theme_item"
+        android:icon="@drawable/ic_baseline_brush_24"
+        app:showAsAction="ifRoom"
+        android:title="@string/change_theme"/>
 
 </menu>

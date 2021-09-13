@@ -5,18 +5,20 @@ import android.content.ContentValues.TAG
 import android.content.Context
 import android.content.Intent
 import android.content.SharedPreferences
+import android.graphics.Bitmap
+import android.graphics.BitmapFactory
 import android.graphics.drawable.Drawable
+import android.net.Uri
 import android.os.Bundle
+import android.provider.MediaStore
 import android.text.method.ScrollingMovementMethod
 import android.util.Log
 import android.view.MotionEvent
 import android.view.View
 import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.get
 import androidx.core.view.isVisible
 import androidx.databinding.DataBindingUtil
-import androidx.databinding.ViewDataBinding
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.bumptech.glide.Glide
@@ -30,6 +32,7 @@ import kotlinx.android.synthetic.main.activity_favourites.*
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+import java.io.ByteArrayOutputStream
 
 
 class DetailsActivity : AppCompatActivity() {
@@ -46,9 +49,10 @@ class DetailsActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        dBinding = DataBindingUtil.setContentView(this,R.layout.activity_details)
+        dBinding = DataBindingUtil.setContentView(this, R.layout.activity_details)
 
-        val sharedPreferences: SharedPreferences = this.getSharedPreferences(movieFavs,Context.MODE_PRIVATE)
+        val sharedPreferences: SharedPreferences =
+            this.getSharedPreferences(movieFavs, Context.MODE_PRIVATE)
 
 
         id = intent?.extras?.getInt("id").toString()
@@ -84,9 +88,8 @@ class DetailsActivity : AppCompatActivity() {
 
 
         called.enqueue(object : Callback<MovieDetails> {
+
             override fun onResponse(call: Call<MovieDetails>, response: Response<MovieDetails>) {
-
-
                 Log.d(TAG, "onResponse: Working till this point")
                 if (response.isSuccessful) {
                     val movieDet = response.body()!!
@@ -99,16 +102,17 @@ class DetailsActivity : AppCompatActivity() {
                     dBinding.textView4.text = "Date:" + movieDet.release_date
                     dBinding.title2.text = movieDet.title
                     name = movieDet.title
-                    dBinding.rating2.text = "★: ${movieDet.vote_average}" + " (${movieDet.vote_count})"
+                    dBinding.rating2.text =
+                        "★: ${movieDet.vote_average}" + " (${movieDet.vote_count})"
 
                     dBinding.quoteMovie.isVisible = movieDet.tagline.isNotEmpty()
                     dBinding.quoteMovie.text = "'${movieDet.tagline}'"
                     themeImage = response.body()?.backdrop_path
                     posPath = movieDet.poster_path.toString()
 
-                    val newsCall = reqNews.getNews(movieDet.title,Constant.apiNewsKey)
+                    val newsCall = reqNews.getNews("${movieDet.title} Movie", Constant.apiNewsKey3)
 
-                    newsCall.enqueue(object: Callback<NewsHeadlinesData> {
+                    newsCall.enqueue(object : Callback<NewsHeadlinesData> {
                         override fun onResponse(
                             call: Call<NewsHeadlinesData>,
                             response: Response<NewsHeadlinesData>
@@ -116,16 +120,20 @@ class DetailsActivity : AppCompatActivity() {
                             if (response.isSuccessful) {
                                 dBinding.newsRecyclerMovie.apply {
                                     setHasFixedSize(true)
-                                    layoutManager = LinearLayoutManager(this@DetailsActivity,LinearLayoutManager.HORIZONTAL,false)
+                                    layoutManager = LinearLayoutManager(
+                                        this@DetailsActivity,
+                                        LinearLayoutManager.HORIZONTAL,
+                                        false
+                                    )
                                     adapter = NewsAdapter(response.body()!!)
                                 }
                             }
                         }
 
                         override fun onFailure(call: Call<NewsHeadlinesData>, t: Throwable) {
-                            Toast.makeText(this@DetailsActivity, "${t.message}", Toast.LENGTH_SHORT).show()
+                            Toast.makeText(this@DetailsActivity, "${t.message}", Toast.LENGTH_SHORT)
+                                .show()
                         }
-
                     })
 
                     Glide.with(this@DetailsActivity)
@@ -161,7 +169,7 @@ class DetailsActivity : AppCompatActivity() {
 
                     val editor: SharedPreferences.Editor = sharedPreferences.edit()
 
-                    val sharedValue = sharedPreferences.getString(movieDet.title,"notAdded")
+                    val sharedValue = sharedPreferences.getString(movieDet.title, "notAdded")
 
                     dBinding.toggleFav.isChecked = sharedValue.equals(mov)
 
@@ -169,7 +177,7 @@ class DetailsActivity : AppCompatActivity() {
                     dBinding.toggleFav.setOnClickListener {
                         if (dBinding.toggleFav.isChecked) {
                             viewModel.insertMovie(FavouritesTable(mov))
-                            editor.putString(movieDet.title,mov)
+                            editor.putString(movieDet.title, mov)
                             editor.apply()
                             editor.commit()
                         } else {
@@ -186,8 +194,6 @@ class DetailsActivity : AppCompatActivity() {
             override fun onFailure(call: Call<MovieDetails>, t: Throwable) {
                 Toast.makeText(this@DetailsActivity, "${t.message}", Toast.LENGTH_SHORT).show()
             }
-
-
         })
 
 
@@ -232,10 +238,12 @@ class DetailsActivity : AppCompatActivity() {
 
         dBinding.youtubeButton.setOnClickListener {
             val intentYT = Intent(this, MainActivity2::class.java)
-            intentYT.putExtra("movie_url", "https://www.youtube.com/results?search_query=$name trailer")
+            intentYT.putExtra(
+                "movie_url",
+                "https://www.youtube.com/results?search_query=$name trailer"
+            )
             startActivity(intentYT)
         }
-
 
         dBinding.bottomNav.setOnNavigationItemSelectedListener {
             when (it.itemId) {
@@ -252,15 +260,11 @@ class DetailsActivity : AppCompatActivity() {
                         )
                     }
                 }
-
             }
-
             return@setOnNavigationItemSelectedListener true
         }
-
     }
 }
-
 
 //    fun shareButton() {
 //

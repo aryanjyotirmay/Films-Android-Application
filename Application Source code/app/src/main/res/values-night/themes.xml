@@ -2,8 +2,8 @@
     <!-- Base application theme. -->
     <style name="Theme.Films" parent="Theme.MaterialComponents.Light.DarkActionBar">
         <!-- Primary brand color. -->
-        <item name="colorPrimary">#3d141e</item>
-        <item name="colorPrimaryVariant">#993d141e</item>
+        <item name="colorPrimary">@color/brownish</item>
+        <item name="colorPrimaryVariant">@color/brownishLight</item>
         <item name="colorOnPrimary">@color/white</item>
         <!-- Secondary brand color. -->
         <item name="colorSecondary">@color/white</item>

@@ -37,9 +37,9 @@ class MainActivity : AppCompatActivity() {
         val call = request.getMovies(Constant.apiKey)
         val call2 = request.getMoviesTopRated(Constant.apiKey)
         val call3 = request.getMoviesUpcoming(Constant.apiKey)
-        val call4 = request.getMovies(Constant.apiKey)
         val callNews = newsRequest.getTopMovieNews("in","entertainment",Constant.apiNewsKey)
         val callNewsInt = newsRequest.getTopMovieNews("us","entertainment",Constant.apiNewsKey)
+
 
         callNews.enqueue(object: Callback<NewsHeadlinesData> {
             override fun onResponse(
@@ -140,41 +140,23 @@ class MainActivity : AppCompatActivity() {
                         )
                         adapter = MoviesAdapter(response.body()!!.results)
                     }
-
-                }
-            }
-
-            override fun onFailure(call: Call<PopularMovies>, t: Throwable) {
-                Toast.makeText(this@MainActivity, "${t.message}", Toast.LENGTH_SHORT).show()
-            }
-        })
-
-        call4.enqueue(object: Callback<PopularMovies> {
-            override fun onResponse(call: Call<PopularMovies>, response: Response<PopularMovies>) {
-                if (response.isSuccessful) {
                     view_pager.adapter = ViewPagerAdapter(response.body()!!.results)
+
                 }
             }
 
             override fun onFailure(call: Call<PopularMovies>, t: Throwable) {
                 Toast.makeText(this@MainActivity, "${t.message}", Toast.LENGTH_SHORT).show()
             }
-
         })
-
-
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
 
-        val inflater = menuInflater
-        inflater.inflate(R.menu.menu_items, menu)
+        //val inflater = menuInflater
+        menuInflater.inflate(R.menu.menu_items, menu)
 
-        val manager = getSystemService(Context.SEARCH_SERVICE) as SearchManager
-
-        val searchMov = menu?.findItem(R.id.search_item)
-
-        val searchView = searchMov?.actionView as SearchView
+        val searchView = menu?.findItem(R.id.search_item)?.actionView as SearchView
 
         searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(query: String?): Boolean {
@@ -189,30 +171,24 @@ class MainActivity : AppCompatActivity() {
                 return false
             }
         })
-
         return true
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
-
             R.id.voice_search -> {
                 voiceSearch()
             }
 
             R.id.favourites -> {
-
                 val iFav = Intent(this, FavouritesActivity::class.java)
                 startActivity(iFav)
-
             }
             R.id.nearby_movie -> {
                 val iMap = Intent(this,MapsActivity::class.java)
                 startActivity(iMap)
             }
-
         }
-
         return true
     }
 
