@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    package="com.example.films">
+    package="com.aryanjyotirmay.films">
 
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
@@ -17,10 +17,10 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Films">
-        <activity android:name=".WebViewActivity"
+        <activity android:name="com.aryanjyotirmay.films.WebViewActivity"
             android:theme="@style/Theme.AppCompat.NoActionBar"/>
         <activity
-            android:name=".MainActivity2"
+            android:name="com.aryanjyotirmay.films.MainActivity2"
             android:theme="@style/Theme.AppCompat.NoActionBar" />
 
         <meta-data
@@ -28,24 +28,24 @@
             android:value="@string/google_maps_key" />
 
         <activity
-            android:name=".MapsActivity"
+            android:name="com.aryanjyotirmay.films.MapsActivity"
             android:label="@string/title_activity_maps" />
         <activity
-            android:name=".FavouritesActivity"
+            android:name="com.aryanjyotirmay.films.FavouritesActivity"
             android:theme="@style/Theme.MaterialComponents.Dialog.FixedSize" />
         <activity
-            android:name=".ActorActivity"
+            android:name="com.aryanjyotirmay.films.ActorActivity"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.AppCompat.NoActionBar"
             tools:ignore="LockedOrientationActivity" />
-        <activity android:name=".BossActivity" />
+        <activity android:name="com.aryanjyotirmay.films.BossActivity" />
         <activity
-            android:name=".SimilarMoviesActivity"
+            android:name="com.aryanjyotirmay.films.SimilarMoviesActivity"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.AppCompat.NoActionBar"
             tools:ignore="LockedOrientationActivity" />
         <activity
-            android:name=".MainActivity"
+            android:name="com.aryanjyotirmay.films.MainActivity"
             android:screenOrientation="portrait"
             tools:ignore="LockedOrientationActivity">
             <intent-filter>
@@ -55,19 +55,19 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".DetailsActivity"
+            android:name="com.aryanjyotirmay.films.DetailsActivity"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.AppCompat.NoActionBar"
             tools:ignore="LockedOrientationActivity" />
         <activity
-            android:name=".enlarge"
+            android:name="com.aryanjyotirmay.films.enlarge"
             android:theme="@style/Theme.AppCompat.NoActionBar" />
         <activity
-            android:name=".SearchActivity"
+            android:name="com.aryanjyotirmay.films.SearchActivity"
             android:screenOrientation="portrait"
             tools:ignore="LockedOrientationActivity" />
         <activity
-            android:name=".ImageCollections"
+            android:name="com.aryanjyotirmay.films.ImageCollections"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.AppCompat.NoActionBar"
             tools:ignore="LockedOrientationActivity" />

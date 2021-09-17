@@ -10,7 +10,7 @@ android {
     buildToolsVersion "30.0.3"
 
     defaultConfig {
-        applicationId "com.example.films"
+        applicationId "com.aryanjyotirmay.films"
         minSdkVersion 21
         targetSdkVersion 30
         versionCode 1

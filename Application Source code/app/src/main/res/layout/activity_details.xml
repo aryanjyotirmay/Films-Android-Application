@@ -49,6 +49,8 @@
             <TextView
                 android:id="@+id/title_2"
                 style="@style/textBack2"
+                android:paddingStart="4dp"
+                android:background="@drawable/grad2"
                 android:layout_width="187dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="24dp"
@@ -66,6 +68,7 @@
             <TextView
                 android:id="@+id/overview_2"
                 style="@style/textBack"
+                android:background="@drawable/grad2"
                 android:layout_width="match_parent"
                 android:layout_height="200dp"
                 android:layout_marginStart="10dp"
@@ -84,8 +87,11 @@
             <TextView
                 android:id="@+id/rating_2"
                 style="@style/textBack2"
+                android:paddingStart="4dp"
                 android:layout_width="187dp"
                 android:layout_height="30dp"
+                android:layout_marginTop="2dp"
+                android:background="@drawable/grad2"
                 android:gravity="start"
                 android:textColor="#ffffff"
                 android:textSize="20dp"
@@ -97,8 +103,11 @@
             <TextView
                 android:id="@+id/textView4"
                 style="@style/textBack2"
+                android:paddingStart="4dp"
                 android:layout_width="187dp"
                 android:layout_height="32dp"
+                android:layout_marginTop="2dp"
+                android:background="@drawable/grad2"
                 android:textColor="@color/white"
                 android:textSize="15dp"
                 android:textStyle="italic"
@@ -123,8 +132,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="10dp"
+                android:layout_marginTop="2dp"
                 android:layout_marginEnd="10dp"
-                android:layout_marginTop="4dp"
                 app:layout_constraintBottom_toTopOf="@id/textView6"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -132,25 +141,27 @@
 
                 <LinearLayout
                     android:id="@+id/button_sim"
-                    android:background="@drawable/grad2"
-                    android:padding="4dp"
-                    android:layout_marginEnd="4dp"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:layout_weight="1">
+                    android:layout_marginEnd="4dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/grad2"
+                    android:padding="4dp">
+
                     <ImageView
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:src="@drawable/ic_baseline_theaters_24"
-                        android:layout_weight="1.5"/>
+                        android:layout_weight="1.5"
+                        android:src="@drawable/ic_baseline_theaters_24" />
+
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:layout_weight="1"
+                        android:gravity="center_vertical"
                         android:text="@string/browse_similar"
                         android:textColor="@color/white"
-                        android:textSize="16dp"
-                        android:gravity="center_vertical"/>
+                        android:textSize="16dp" />
 
                 </LinearLayout>
 
@@ -158,23 +169,25 @@
                     android:id="@+id/youtube_button"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:background="@drawable/grad2"
-                    android:padding="4dp"
                     android:layout_marginStart="4dp"
-                    android:layout_weight="1">
+                    android:layout_weight="1"
+                    android:background="@drawable/grad2"
+                    android:padding="4dp">
+
                     <ImageView
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:src="@drawable/ic_baseline_play_arrow_24"
-                        android:layout_weight="1.5"/>
+                        android:layout_weight="1.5"
+                        android:src="@drawable/ic_baseline_play_arrow_24" />
+
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:layout_weight="1"
+                        android:gravity="center_vertical"
                         android:text="@string/youtube"
                         android:textColor="@color/white"
-                        android:textSize="16dp"
-                        android:gravity="center_vertical"/>
+                        android:textSize="16dp" />
 
                 </LinearLayout>
             </LinearLayout>
@@ -182,6 +195,7 @@
             <ToggleButton
                 android:id="@+id/toggle_fav"
                 style="@style/textBack"
+                android:background="@drawable/grad2"
                 android:layout_width="wrap_content"
                 android:layout_height="32dp"
                 android:layout_marginTop="8dp"
@@ -205,13 +219,12 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="10dp"
-                android:layout_marginTop="50dp"
-                android:layout_marginBottom="16dp"
+                android:layout_marginTop="40dp"
+                android:background="@drawable/grad2"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/layout_buttons"
-                app:layout_constraintVertical_bias="0.03" />
+                app:layout_constraintTop_toBottomOf="@+id/layout_buttons" />
 
             <TextView
                 android:id="@+id/textView6"
@@ -219,7 +232,9 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="10dp"
-                android:layout_marginTop="16dp"
+                android:layout_marginTop="2dp"
+                android:background="@drawable/grad2"
+                android:paddingStart="4dp"
                 android:text="@string/cast"
                 android:textSize="20dp"
                 app:layout_constraintBottom_toTopOf="@+id/cast_recycler"
@@ -232,10 +247,10 @@
                 android:id="@+id/quote_movie"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:background="@drawable/grad2"
                 android:layout_marginStart="10dp"
                 android:layout_marginTop="8dp"
                 android:layout_marginEnd="10dp"
-                android:background="#50000000"
                 android:gravity="center"
                 android:padding="4dp"
                 android:textColor="@color/white"
