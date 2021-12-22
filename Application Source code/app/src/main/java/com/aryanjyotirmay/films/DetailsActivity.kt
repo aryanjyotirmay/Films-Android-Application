@@ -72,9 +72,6 @@ class DetailsActivity : AppCompatActivity() {
             posPath?.let { it1 -> Navigator.zoomImg(this, it1) }
         }
 
-
-
-
         dBinding.progressBar.visibility = View.VISIBLE
         val req = ServiceBuilder.buildService(TmdbEndpoints::class.java)
         val called = req.getDetails(id.toInt(), Constant.apiKey)

@@ -25,11 +25,8 @@ class CastAdapter(private val casts: List<Cast>) : RecyclerView.Adapter<CastHold
     }
 
     override fun getItemCount(): Int {
-
         return casts.size
     }
-
-
 }
 
 class CastHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
@@ -84,17 +81,11 @@ class CastHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         if (cast.character.count() == 0) {
             name.text = cast.name
         }
-
         layoutRefer.setOnClickListener {
             val castIntent = Intent(itemView.context, ActorActivity::class.java)
             castIntent.putExtra("ActorId", cast.id)
             itemView.context.startActivity(castIntent)
-
-
         }
-
-
     }
-
 
 }
